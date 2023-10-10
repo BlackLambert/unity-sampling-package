@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ca30a0333bcc444e975956d00b14782, type: 3}
+  m_Name: Enemies
+  m_EditorClassIdentifier: 
+  <List>k__BackingField:
+  - <ID>k__BackingField: Drache
+    <Weight>k__BackingField: 2
+    <Power>k__BackingField: 20
+    <Size>k__BackingField: 4
+  - <ID>k__BackingField: Goblin
+    <Weight>k__BackingField: 20
+    <Power>k__BackingField: 3
+    <Size>k__BackingField: 1
+  - <ID>k__BackingField: Abyssal-Cicken
+    <Weight>k__BackingField: 8
+    <Power>k__BackingField: 6
+    <Size>k__BackingField: 2
+  - <ID>k__BackingField: Hasi
+    <Weight>k__BackingField: 50
+    <Power>k__BackingField: 1
+    <Size>k__BackingField: 1
+  - <ID>k__BackingField: Giant
+    <Weight>k__BackingField: 3
+    <Power>k__BackingField: 17
+    <Size>k__BackingField: 4
