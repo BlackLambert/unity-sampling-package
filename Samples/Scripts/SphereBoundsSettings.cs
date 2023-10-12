@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SBaier.Sampling.Examples
+namespace PCGToolkit.Sampling.Examples
 {
 	[CreateAssetMenu(fileName = "SphereBoundsSettings", menuName = "Sampling/Examples/SphereBoundsSettings")]
 	public class SphereBoundsSettings : BoundsSettings

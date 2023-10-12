@@ -1,8 +1,8 @@
-using PCG.Toolkit;
+
 using UnityEngine;
 using Random = System.Random;
 
-namespace PCG.Tests
+namespace PCGToolkit.Sampling.Examples
 {
     public class WeightedListTester : MonoBehaviour
     {

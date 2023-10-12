@@ -9,6 +9,7 @@
   "changelogUrl": "",
   "licensesUrl": "",
   "dependencies": {
+    "nuget.moq": "1.0.0"
  },
  "keywords": [
     "sampling"

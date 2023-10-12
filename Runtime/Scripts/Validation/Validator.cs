@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SBaier.Sampling
+namespace PCGToolkit.Sampling
 {
     public interface Validator<T>
     {

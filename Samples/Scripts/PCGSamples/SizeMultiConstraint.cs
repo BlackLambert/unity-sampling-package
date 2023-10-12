@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using PCG.Toolkit;
 
-namespace PCG.Tests
+namespace PCGToolkit.Sampling.Examples
 {
     public class SizeMultiConstraint : SetConstraint<Enemy>
     {

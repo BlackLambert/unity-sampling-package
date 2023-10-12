@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SBaier.Sampling.Examples
+namespace PCGToolkit.Sampling.Examples
 {
 	[CreateAssetMenu(fileName = "CubeBoundsSettings", menuName = "Sampling/Examples/CubeBoundsSettings")]
 	public class CubeBoundsSettings : BoundsSettings

@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace SBaier.Sampling
+namespace PCGToolkit.Sampling
 {
 	public class CubeBounds : Bounds
 	{
@@ -20,7 +17,7 @@ namespace SBaier.Sampling
 		private void ValidateSize(Vector3 size)
 		{
 			if (size.x < 0 || size.y < 0 || size.z < 0)
-				throw new Bounds.InvalidBoundsException($"Please provide a positive size value for {nameof(CubeBounds)}.");
+				throw new InvalidBoundsException($"Please provide a positive size value for {nameof(CubeBounds)}.");
 		}
 
 		public bool Contains(Vector3 point)

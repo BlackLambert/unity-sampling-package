@@ -1,8 +1,7 @@
 ﻿using System;
-using PCG.Toolkit;
 using UnityEngine;
 
-namespace PCG.Tests
+namespace PCGToolkit.Sampling.Examples
 {
     [Serializable]
     public class Enemy : Weighted

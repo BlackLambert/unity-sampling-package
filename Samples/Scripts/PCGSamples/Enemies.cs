@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PCG.Tests
+namespace PCGToolkit.Sampling.Examples
 {
     [CreateAssetMenu(fileName = "Enemies", menuName = "ScriptableObjects/Enemies", order = 1)]
     public class Enemies : ScriptableObject

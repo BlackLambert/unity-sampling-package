@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SBaier.Sampling.Examples
+namespace PCGToolkit.Sampling.Examples
 {
     public class SamplesGizmoDrawer : MonoBehaviour
     {

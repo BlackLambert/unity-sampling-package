@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SBaier.Sampling
+namespace PCGToolkit.Sampling
 {
 	public class SphereBounds : Bounds
 	{
@@ -20,7 +20,7 @@ namespace SBaier.Sampling
 		private void ValidateRadius(float radius)
 		{
 			if (radius < 0)
-				throw new Bounds.InvalidBoundsException($"Please provide a positive radius value for {nameof(SphereBounds)}");
+				throw new InvalidBoundsException($"Please provide a positive radius value for {nameof(SphereBounds)}");
 		}
 
 		public bool Contains(Vector3 point)
@@ -31,7 +31,7 @@ namespace SBaier.Sampling
 
 		public override string ToString()
 		{
-			return $"{nameof(SphereBounds)}({nameof(_center)} {_center.ToString()} | {nameof(_radius)} {_radius.ToString()})";
+			return $"{nameof(SphereBounds)}({nameof(_center)} {_center.ToString()} | {nameof(_radius)} {_radius})";
 		}
 	}
 }

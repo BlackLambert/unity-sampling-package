@@ -3,7 +3,7 @@ using NUnit.Framework;
 using System;
 using UnityEngine;
 
-namespace SBaier.Sampling.Tests
+namespace PCGToolkit.Sampling.Tests
 {
     public class PoissonDiskSampling3DParameterValidatorTests
     {

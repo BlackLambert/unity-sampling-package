@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using PCG.Toolkit;
 using UnityEngine;
 using Random = System.Random;
 
-namespace PCG.Tests
+namespace PCGToolkit.Sampling.Examples
 {
     public class ConstraintWeightedMultiSamplerTester : MonoBehaviour
     {

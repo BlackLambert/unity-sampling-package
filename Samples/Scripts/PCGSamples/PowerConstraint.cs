@@ -1,6 +1,6 @@
-using PCG.Toolkit;
 
-namespace PCG.Tests
+
+namespace PCGToolkit.Sampling.Examples
 {
     public class PowerConstraint : Constraint<Enemy>
     {

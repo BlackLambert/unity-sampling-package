@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace SBaier.Sampling
+namespace PCGToolkit.Sampling
 {
 	public class PoissonDiskSampling3DParameterValidator : Validator<PoissonDiskSampling3D.Parameters>
 	{

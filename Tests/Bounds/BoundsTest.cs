@@ -2,7 +2,7 @@ using NUnit.Framework;
 using System;
 using UnityEngine;
 
-namespace SBaier.Sampling.Tests
+namespace PCGToolkit.Sampling.Tests
 {
     public abstract class BoundsTest
     {
@@ -84,7 +84,7 @@ namespace SBaier.Sampling.Tests
 
         private void ThenThrowsInvalidBoundsException(TestDelegate test)
         {
-            Assert.Throws<Bounds.InvalidBoundsException>(test);
+            Assert.Throws<InvalidBoundsException>(test);
         }
 
 
