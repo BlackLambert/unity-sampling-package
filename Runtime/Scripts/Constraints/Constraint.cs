@@ -1,7 +1,7 @@
 namespace PCGToolkit.Sampling
 {
-    public interface Constraint<T>
+    public interface Constraint<in T>
     {
-        bool IsValid(T item);
+        bool IsValid(T samplingStep);
     }
 }

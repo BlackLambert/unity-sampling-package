@@ -11,9 +11,9 @@ namespace PCGToolkit.Sampling.Examples
             _maxPower = maxPower;
         }
 
-        public bool IsValid(Enemy item)
+        public bool IsValid(Enemy samplingStep)
         {
-            return item.Power <= _maxPower;
+            return samplingStep.Power <= _maxPower;
         }
     }
 }

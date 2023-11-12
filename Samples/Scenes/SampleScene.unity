@@ -860,7 +860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemies: {fileID: 11400000, guid: 731401030ef5ff54295e27bc7fa7a183, type: 2}
-  _validSizes: 2
+  _validSizes: 3
   _maxPower: 5
   _sampleAmount: 20000
 --- !u!114 &1796645296

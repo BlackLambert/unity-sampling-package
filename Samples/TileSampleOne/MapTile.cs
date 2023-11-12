@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace PCGToolkit.Sampling.Examples.TileSampleOne
 {
-    public class Tile : MonoBehaviour
+    public class MapTile : MonoBehaviour
     {
         [field: SerializeField] private Image _image;
         public RectTransform RectTransform => (RectTransform)transform;

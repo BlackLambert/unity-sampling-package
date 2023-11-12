@@ -11,9 +11,9 @@ namespace PCGToolkit.Sampling.Examples
             _size = size;
         }
 
-        public bool IsValid(Enemy item)
+        public bool IsValid(Enemy samplingStep)
         {
-            return _size.HasFlag(item.Size);
+            return _size.HasFlag(samplingStep.Size);
         }
     }
 }

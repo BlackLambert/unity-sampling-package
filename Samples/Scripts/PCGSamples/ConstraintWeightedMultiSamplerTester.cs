@@ -14,16 +14,18 @@ namespace PCGToolkit.Sampling.Examples
         [SerializeField] private int _sampleMaxAmount = 10;
         
         private WeightedSingleSampler<Enemy> _weightedSingleSampler;
-        private ConstraintMultiSampler<Enemy> _constraintMultiSampler;
+        private ConstraintSetSampler<Enemy, EnemySetSamplingValidationContext> _constraintSetSampler;
 
         public void Sample()
         {
             _weightedSingleSampler = new WeightedSingleSampler<Enemy>(new Random());
-            SetConstraint<Enemy> constraint = new PowerMultiConstraint(_maxPower).And(new SizeMultiConstraint(CreateSizeToAmount()));
-            _constraintMultiSampler = new ConstraintMultiSampler<Enemy>(_weightedSingleSampler, constraint, _sampleMaxAmount);
-            _constraintMultiSampler.UpdateDomain(_enemies.List);
+            Constraint<EnemySetSamplingValidationContext> constraint = new EnemyPowerSetConstraint(_maxPower).
+                And(new EnemySizeSetConstraint(CreateSizeToAmount()));
+            _constraintSetSampler = new ConstraintSetSampler<Enemy, EnemySetSamplingValidationContext>(
+                _weightedSingleSampler, constraint, _sampleMaxAmount);
+            _constraintSetSampler.UpdateDomain(_enemies.List);
 
-            List<Enemy> enemies = _constraintMultiSampler.Sample();
+            List<Enemy> enemies = _constraintSetSampler.Sample();
             foreach (Enemy enemy in enemies)
             {
                 Debug.Log($"ChosenEnemy {enemy}");

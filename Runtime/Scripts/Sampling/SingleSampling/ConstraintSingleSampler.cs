@@ -5,12 +5,12 @@ namespace PCGToolkit.Sampling
 {
     public class ConstraintSingleSampler<T> : SingleSampler<T>
     {
-        public IReadOnlyCollection<T> Domain => _samples;
+        public IReadOnlyCollection<T> Domain => _domain;
 
         private readonly SingleSampler<T> _baseSingleSampler;
         private Constraint<T> _constraint;
-        private List<T> _constraintSamples = new List<T>();
-        private List<T> _samples = new List<T>();
+        private List<T> _constraintDomain = new List<T>();
+        private List<T> _domain = new List<T>();
 
         public ConstraintSingleSampler(
             SingleSampler<T> baseSingleSampler,
@@ -39,31 +39,31 @@ namespace PCGToolkit.Sampling
         
         public void UpdateDomain(IList<T> domain)
         {
-            _samples.Clear();
-            _samples.AddRange(domain);
+            _domain.Clear();
+            _domain.AddRange(domain);
         }
 
         private void UpdateBaseSampler()
         {
-            UpdateConstraintSamples();
-            ValidateItemsNotEmpty(_constraintSamples);
-            _baseSingleSampler.UpdateDomain(_constraintSamples);
+            UpdateConstraintDomain();
+            ValidateNotEmpty(_constraintDomain);
+            _baseSingleSampler.UpdateDomain(_constraintDomain);
         }
 
-        private void UpdateConstraintSamples()
+        private void UpdateConstraintDomain()
         {
-            _constraintSamples.Clear();
+            _constraintDomain.Clear();
 
-            foreach (T sample in _samples)
+            foreach (T sample in _domain)
             {
                 if (_constraint.IsValid(sample))
                 {
-                    _constraintSamples.Add(sample);
+                    _constraintDomain.Add(sample);
                 }
             }
         }
 
-        private void ValidateItemsNotEmpty(IReadOnlyCollection<T> items)
+        private void ValidateNotEmpty(IReadOnlyCollection<T> items)
         {            
             if (items.Count == 0)
             {

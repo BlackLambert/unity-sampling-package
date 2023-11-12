@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd080db45fbcef4429c5db5a31b79d3b, type: 3}
+  m_Name: _WaterMapTiles
+  m_EditorClassIdentifier: 
+  <Tiles>k__BackingField:
+  - {fileID: 11400000, guid: 836a6b0fd72df5044a22459bc8115f57, type: 2}
+  - {fileID: 11400000, guid: 700c76b8382305743b67b7289b9ff974, type: 2}
+  - {fileID: 11400000, guid: f60b8c9a1fffbfb4da1d74b78809772f, type: 2}
+  - {fileID: 11400000, guid: 06d9a4a518914894eb67e9e531c8e7ec, type: 2}
+  - {fileID: 11400000, guid: 775beceee52453b4e8e17b7f97370603, type: 2}
+  - {fileID: 11400000, guid: abbfa96a059377b47928b08a49cde88b, type: 2}
+  - {fileID: 11400000, guid: f7d4b7d0ebdc51b47bd6b0e9efba9e5c, type: 2}
+  - {fileID: 11400000, guid: e367beaa005a519488c9a2e7f94be73d, type: 2}
+  - {fileID: 11400000, guid: 830d19cf8cff74049a2879bfda615f68, type: 2}
+  - {fileID: 11400000, guid: c11f3b8c9dd8e7546a0ec0d81f919fa6, type: 2}
+  - {fileID: 11400000, guid: 26f91a2fb45b12a41a1e8436632dc41c, type: 2}
+  - {fileID: 11400000, guid: 4d4acfb78d3b7fc41b0360c86c48190b, type: 2}
+  - {fileID: 11400000, guid: 44b8381ece21fb044b9a5df0b0423da6, type: 2}
+  - {fileID: 11400000, guid: 88daa250fba65e840ab5b61b041342f2, type: 2}
+  - {fileID: 11400000, guid: f91670f8f9498244f882f42eddc5bc27, type: 2}
