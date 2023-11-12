@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PCGToolkit.Sampling
 {
-    public abstract class MultiSampler<T> : Sampler<T>
+    public interface MultiSampler<T> : Sampler<T>
     {
         public abstract List<T> Sample();
     }

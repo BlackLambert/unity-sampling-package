@@ -3,40 +3,25 @@ using System.Collections.Generic;
 
 namespace PCGToolkit.Sampling
 {
-    public class WeightedSingleSampler<T> : SingleSampler<T> where T : Weighted
+    public class WeightedSingleSampler<T> : WeightedSampler<T>, SingleSampler<T> where T : Weighted
     {
-        public override IReadOnlyCollection<T> Samples => _weightedSamples.ReadonlyKeys;
-
-        private WeightedList<T> _weightedSamples;
-        private Random _random;
-
-        public WeightedSingleSampler(Random random)
+        public WeightedSingleSampler(Random random) : base(random)
         {
-            _weightedSamples = new WeightedList<T>(random);
-        }
-        
-        public override void UpdateSamples(IList<T> samples)
-        {
-            _weightedSamples.Clear();
-            for (int i = 0; i < samples.Count; i++)
-            {
-                T sample = samples[i];
-                _weightedSamples.Add(sample, sample.Weight);
-            }
+            
         }
 
-        public override T Sample()
+        public T Sample()
         {
-            return _weightedSamples.GetRandomItem();
+            return _weightedDomain.GetRandomItem();
         }
 
-        public override List<T> Sample(int amount)
+        public List<T> Sample(int amount)
         {
             List<T> result = new List<T>(amount);
             
             for (int i = 0; i < amount; i++)
             {
-                result.Add(_weightedSamples.GetRandomItem());
+                result.Add(_weightedDomain.GetRandomItem());
             }
 
             return result;

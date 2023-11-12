@@ -4,7 +4,7 @@ namespace PCGToolkit.Sampling
 {
     public class ConstraintMultiSampler<T> : MultiSampler<T>
     {
-        public override IReadOnlyCollection<T> Samples => _samples;
+        public IReadOnlyCollection<T> Domain => _samples;
 
         private readonly int _sampleMaximum;
         private readonly SingleSampler<T> _baseSingleSampler;
@@ -24,7 +24,7 @@ namespace PCGToolkit.Sampling
             _samples = new List<T>(sampleMaximum);
         }
 
-        public override List<T> Sample()
+        public List<T> Sample()
         {
             InitConstraints();
             UpdateValidSamples();
@@ -32,7 +32,7 @@ namespace PCGToolkit.Sampling
             List<T> result = new List<T>(_sampleMaximum);
             while (_constraintSamples.Count > 0 && result.Count < _sampleMaximum)
             {
-                _baseSingleSampler.UpdateSamples(_constraintSamples);
+                _baseSingleSampler.UpdateDomain(_constraintSamples);
                 T sample = _baseSingleSampler.Sample();
                 result.Add(sample);
                 _constraint.AddResultSample(sample);
@@ -42,10 +42,10 @@ namespace PCGToolkit.Sampling
             return result;
         }
 
-        public override void UpdateSamples(IList<T> samples)
+        public void UpdateDomain(IList<T> domain)
         {
             _samples.Clear();
-            _samples.AddRange(samples);
+            _samples.AddRange(domain);
         }
 
         private void UpdateValidSamples()

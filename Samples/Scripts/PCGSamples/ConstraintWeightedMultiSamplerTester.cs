@@ -21,7 +21,7 @@ namespace PCGToolkit.Sampling.Examples
             _weightedSingleSampler = new WeightedSingleSampler<Enemy>(new Random());
             SetConstraint<Enemy> constraint = new PowerMultiConstraint(_maxPower).And(new SizeMultiConstraint(CreateSizeToAmount()));
             _constraintMultiSampler = new ConstraintMultiSampler<Enemy>(_weightedSingleSampler, constraint, _sampleMaxAmount);
-            _constraintMultiSampler.UpdateSamples(_enemies.List);
+            _constraintMultiSampler.UpdateDomain(_enemies.List);
 
             List<Enemy> enemies = _constraintMultiSampler.Sample();
             foreach (Enemy enemy in enemies)

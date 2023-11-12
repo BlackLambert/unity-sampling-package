@@ -23,7 +23,7 @@ namespace PCGToolkit.Sampling.Examples
 
             _weightedSingleSampler = new WeightedSingleSampler<Enemy>(new Random());
             _constraintSingleSampler = new ConstraintSingleSampler<Enemy>(_weightedSingleSampler, constraint);
-            _constraintSingleSampler.UpdateSamples(_enemies.List);
+            _constraintSingleSampler.UpdateDomain(_enemies.List);
 
             List<Enemy> enemies = _constraintSingleSampler.Sample(_sampleAmount);
             foreach (Enemy enemy in enemies)

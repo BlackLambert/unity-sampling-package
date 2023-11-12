@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace PCGToolkit.Sampling
 {
-    public abstract class Sampler<T>
+    public interface Sampler<T>
     {
-        public abstract IReadOnlyCollection<T> Samples { get; }
-        public abstract void UpdateSamples(IList<T> samples);
+        IReadOnlyCollection<T> Domain { get; }
+        void UpdateDomain(IList<T> domain);
     }
 }

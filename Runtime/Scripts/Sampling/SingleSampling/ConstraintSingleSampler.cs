@@ -5,7 +5,7 @@ namespace PCGToolkit.Sampling
 {
     public class ConstraintSingleSampler<T> : SingleSampler<T>
     {
-        public override IReadOnlyCollection<T> Samples => _samples;
+        public IReadOnlyCollection<T> Domain => _samples;
 
         private readonly SingleSampler<T> _baseSingleSampler;
         private Constraint<T> _constraint;
@@ -25,29 +25,29 @@ namespace PCGToolkit.Sampling
             _constraint = constraint;
         }
 
-        public override T Sample()
+        public T Sample()
         {
             UpdateBaseSampler();
             return _baseSingleSampler.Sample();
         }
 
-        public override List<T> Sample(int amount)
+        public List<T> Sample(int amount)
         {
             UpdateBaseSampler();
             return _baseSingleSampler.Sample(amount);
         }
         
-        public override void UpdateSamples(IList<T> samples)
+        public void UpdateDomain(IList<T> domain)
         {
             _samples.Clear();
-            _samples.AddRange(samples);
+            _samples.AddRange(domain);
         }
 
         private void UpdateBaseSampler()
         {
             UpdateConstraintSamples();
             ValidateItemsNotEmpty(_constraintSamples);
-            _baseSingleSampler.UpdateSamples(_constraintSamples);
+            _baseSingleSampler.UpdateDomain(_constraintSamples);
         }
 
         private void UpdateConstraintSamples()
