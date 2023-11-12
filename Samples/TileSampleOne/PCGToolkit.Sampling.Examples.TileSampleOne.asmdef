@@ -1,0 +1,16 @@
+{
+    "name": "PCGToolkit.Sampling.Examples.TileSampleOne",
+    "rootNamespace": "PCGToolkit.Sampling.Examples.TileSampleOne",
+    "references": [
+        "GUID:8c3056947e784394b8948b0f5bbba88d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
