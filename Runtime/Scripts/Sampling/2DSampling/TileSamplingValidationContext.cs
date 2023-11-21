@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace PCGToolkit.Sampling
+﻿namespace PCGToolkit.Sampling
 {
     public interface TileSamplingValidationContext<T> where T : Tile
     {

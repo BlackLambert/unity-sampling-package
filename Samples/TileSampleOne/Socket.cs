@@ -15,6 +15,7 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
         WaterRightLandLeft = 5,
         WaterLeftLandRight = 6,
         
-        Tower = 7
+        Tower = 7,
+        Forest = 8,
     }
 }

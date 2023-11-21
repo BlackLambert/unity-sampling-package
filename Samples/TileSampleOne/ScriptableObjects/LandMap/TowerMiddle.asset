@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62e0c17654bf98f43b97087d4341ace2, type: 3}
-  m_Name: Tree
+  m_Name: TowerMiddle
   m_EditorClassIdentifier: 
-  <Weight>k__BackingField: 50
-  <Sprite>k__BackingField: {fileID: 21300000, guid: 3e8b4403f05e3db489b840cb81562bc9, type: 3}
-  <TopSocket>k__BackingField: 2
+  <Weight>k__BackingField: 20
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 04820df6b21f9c44abb8455f194407d7, type: 3}
+  <TopSocket>k__BackingField: 7
   <RightSocket>k__BackingField: 2
-  <BottomSocket>k__BackingField: 2
+  <BottomSocket>k__BackingField: 7
   <LeftSocket>k__BackingField: 2

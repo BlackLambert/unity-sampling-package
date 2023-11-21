@@ -4,14 +4,15 @@ namespace PCGToolkit.Sampling
     {
         public bool IsValid(TileSamplingValidationContext<T> context)
         {
+            Grid2D<T> grid = context.Grid;
             T currentElement = context.CurrentDomainElementToValidate;
             int x = context.CurrentSampleXCoordinate;
             int y = context.CurrentSampleYCoordinate;
 
-            T leftTile = x > 0 ? context.Grid[x - 1, y] : default;
-            T rightTile = x < context.Grid.Width - 1 ? context.Grid[x + 1, y] : default;
-            T bottomTile = y > 0 ? context.Grid[x, y - 1] : default;
-            T topTile = y < context.Grid.Height - 1 ? context.Grid[x, y + 1] : default;
+            T leftTile = x > 0 ? grid[x - 1, y] : default;
+            T rightTile = x < grid.Width - 1 ? grid[x + 1, y] : default;
+            T bottomTile = y > 0 ? grid[x, y - 1] : default;
+            T topTile = y < grid.Height - 1 ? grid[x, y + 1] : default;
 
             bool hasLeftTile = leftTile != null && !leftTile.Equals(default);
             bool hasRightTile = rightTile != null && !rightTile.Equals(default);

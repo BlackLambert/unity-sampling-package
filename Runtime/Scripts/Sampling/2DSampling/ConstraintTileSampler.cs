@@ -1,23 +1,25 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace PCGToolkit.Sampling
 {
-    public class ConstraintTileSampler<TSample, TContext> : TileSampler<TSample> 
-        where TSample : Tile 
+    public class ConstraintTileSampler<TSample, TContext> : TileSampler<TSample>
+        where TSample : Tile
         where TContext : TileSamplingValidationContext<TSample>, new()
     {
         public IReadOnlyCollection<TSample> Domain => _domain;
+        private Selector<Coordinate2D> _selector;
         private SingleSampler<TSample> _baseSampler;
         private Constraint<TContext> _constraint;
         private List<TSample> _domain = new List<TSample>();
         private List<TSample> _constraintDomain = new List<TSample>();
-        
+
         public ConstraintTileSampler(
+            Selector<Coordinate2D> selector,
             SingleSampler<TSample> baseSampler,
             Constraint<TContext> constraint)
         {
+            _selector = selector;
             _baseSampler = baseSampler;
             _constraint = constraint;
         }
@@ -41,29 +43,44 @@ namespace PCGToolkit.Sampling
         public Grid2D<TSample> Sample(int width, int height)
         {
             TContext context = new TContext();
-            Grid2D<TSample> result = new Grid2D<TSample>(width, height);
-            context.Grid = result;
-            int tilesAmount = width * height;
+            context.Grid = new Grid2D<TSample>(width, height);
+            _selector.Init(CreateCoordinates(width, height));
 
-            for (int i = 0; i < tilesAmount; i++)
+            while (_selector.HasNext())
             {
-                int column = i % height;
-                int row = i / height;
-
-                context.CurrentSampleXCoordinate = column;
-                context.CurrentSampleYCoordinate = row;
-                UpdateConstraintDomain(context);
-
-                if (_constraintDomain.Count == 0)
-                {
-                    throw new InvalidOperationException($"No sample found for (x: {column} | y: {row})");
-                }
-                
-                _baseSampler.UpdateDomain(_constraintDomain);
-                TSample sample = _baseSampler.Sample();
-                result[column, row] = sample;
+                SampleAt(context, _selector.GetNext());
             }
             
+            return context.Grid;
+        }
+
+        private void SampleAt(TContext context, Coordinate2D coordinate)
+        {
+            context.CurrentSampleXCoordinate = coordinate.X;
+            context.CurrentSampleYCoordinate = coordinate.Y;
+            UpdateConstraintDomain(context);
+
+            if (_constraintDomain.Count == 0)
+            {
+                throw new InvalidOperationException($"No sample found for (x: {coordinate.X} | y: {coordinate.Y})");
+            }
+
+            _baseSampler.UpdateDomain(_constraintDomain);
+            TSample sample = _baseSampler.Sample();
+            context.Grid[coordinate.X, coordinate.Y] = sample;
+        }
+
+        private ICollection<Coordinate2D> CreateCoordinates(int width, int height)
+        {
+            List<Coordinate2D> result = new List<Coordinate2D>(width * height);
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    result.Add(new Coordinate2D { X = x, Y = y });
+                }
+            }
+
             return result;
         }
 

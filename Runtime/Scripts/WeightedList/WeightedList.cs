@@ -40,7 +40,8 @@ namespace PCGToolkit.Sampling
             get => _internalDictionary[key];
             set
             {
-                _totalWeight = _internalDictionary[key];
+                float currentWeight = _internalDictionary.ContainsKey(key) ? _internalDictionary[key] : 0;
+                _totalWeight -= currentWeight;
                 _internalDictionary[key] = value;
                 _totalWeight += value;
             }
