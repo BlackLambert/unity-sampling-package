@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e0c17654bf98f43b97087d4341ace2, type: 3}
   m_Name: WaterCenter
   m_EditorClassIdentifier: 
-  <Weight>k__BackingField: 1000
+  <Weight>k__BackingField: 100
   <Sprite>k__BackingField: {fileID: 21300000, guid: 4cbbb4bd4c89a6c4494eb1f72a6eb609, type: 3}
   <TopSocket>k__BackingField: 1
+  <TopRightSocket>k__BackingField: 1
   <RightSocket>k__BackingField: 1
+  <BottomRightSocket>k__BackingField: 1
   <BottomSocket>k__BackingField: 1
+  <BottomLeftSocket>k__BackingField: 1
   <LeftSocket>k__BackingField: 1
+  <TopLeftSocket>k__BackingField: 1

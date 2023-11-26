@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e0c17654bf98f43b97087d4341ace2, type: 3}
   m_Name: Land
   m_EditorClassIdentifier: 
-  <Weight>k__BackingField: 2000
+  <Weight>k__BackingField: 500
   <Sprite>k__BackingField: {fileID: 21300000, guid: 421a61e68b6dd0148a77d7d070f64ef6, type: 3}
   <TopSocket>k__BackingField: 2
+  <TopRightSocket>k__BackingField: 2
   <RightSocket>k__BackingField: 2
+  <BottomRightSocket>k__BackingField: 2
   <BottomSocket>k__BackingField: 2
+  <BottomLeftSocket>k__BackingField: 2
   <LeftSocket>k__BackingField: 2
+  <TopLeftSocket>k__BackingField: 2

@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace PCGToolkit.Sampling
 {
-    public class BasicCoordinateSelector : Selector<Coordinate2D>
+    public class BasicSelector<TItem> : Selector<TItem>
     {
-        private List<Coordinate2D> _coordinates = new List<Coordinate2D>();
+        private List<TItem> _coordinates = new List<TItem>();
         private int _index = 0;
         private int _count = 0;
 
-        public void Init(ICollection<Coordinate2D> items)
+        public void Init(ICollection<TItem> items)
         {
             _index = 0;
             _coordinates = items.ToList();
@@ -22,14 +22,14 @@ namespace PCGToolkit.Sampling
             return _index < _count;
         }
 
-        public Coordinate2D GetNext()
+        public TItem GetNext()
         {
             if (!HasNext())
             {
                 throw new InvalidOperationException("There is not item left to get.");
             }
 
-            Coordinate2D result = _coordinates[_index];
+            TItem result = _coordinates[_index];
             _index++;
             return result;
         }

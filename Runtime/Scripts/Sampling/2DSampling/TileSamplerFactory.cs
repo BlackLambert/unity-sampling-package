@@ -21,9 +21,23 @@ namespace PCGToolkit.Sampling
             System.Random random = new System.Random(seed);
             WeightedSingleSampler<TTile> baseSampler = new WeightedSingleSampler<TTile>(random);
             TileNeighbourConstraint<TTile> constraint = new TileNeighbourConstraint<TTile>();
-            BasicCoordinateSelector selector = new BasicCoordinateSelector();
+            BasicSelector<Coordinate2D> selector = new BasicSelector<Coordinate2D>();
             ConstraintTileSampler<TTile, BasicTileSamplingValidationContext<TTile>> tilesSampler = 
                 new ConstraintTileSampler<TTile,  BasicTileSamplingValidationContext<TTile>>(selector, baseSampler, constraint);
+            tilesSampler.UpdateDomain(items);
+            return tilesSampler;
+        }
+        
+        public static TileSampler<TTile> CreateWeightedNeighborConstraintSamplerWithPrioritizedSelector<TTile>(int seed,
+            IList<TTile> items, TTile defaultTile) 
+            where TTile : Weighted, Tile
+        {
+            System.Random random = new System.Random(seed);
+            WeightedSingleSampler<TTile> baseSampler = new WeightedSingleSampler<TTile>(random);
+            TileNeighbourConstraint<TTile> constraint = new TileNeighbourConstraint<TTile>();
+            PrioritizedSelector<Coordinate2D> selector = new PrioritizedSelector<Coordinate2D>();
+            ConstraintTileSampler<TTile, BasicTileSamplingValidationContext<TTile>> tilesSampler = 
+                new ConstraintTileSampler<TTile,  BasicTileSamplingValidationContext<TTile>>(selector, baseSampler, constraint, defaultTile);
             tilesSampler.UpdateDomain(items);
             return tilesSampler;
         }

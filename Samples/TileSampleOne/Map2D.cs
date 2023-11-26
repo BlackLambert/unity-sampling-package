@@ -83,7 +83,7 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
         private void CreateNeighbourConstraintMap()
         {
             TileSampler<MapTileSettings> tilesSampler = 
-                TileSamplerFactory.CreateWeightedNeighborConstraintSampler(_currentSeed, _tileSet.Tiles);
+                TileSamplerFactory.CreateWeightedNeighborConstraintSamplerWithPrioritizedSelector(_currentSeed, _tileSet.Tiles, _tileSet.DefaultTile);
             Grid2D<MapTileSettings> tiles = tilesSampler.Sample(_width, _height);
             UpdateMap(tiles);
         }

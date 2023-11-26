@@ -30,5 +30,21 @@ namespace PCGToolkit.Sampling
             get => _tiles[row, column];
             set => _tiles[row, column] = value;
         }
+        
+        public bool TryGet(int x, int y, out T tile)
+        {
+            tile = default;
+            if (!Has(x, y))
+            {
+                return false;
+            }
+            tile = this[x, y];
+            return tile != null;
+        }
+
+        private bool Has(int x, int y)
+        {
+            return x >= 0 && y >= 0 && x < Width && y < Height;
+        }
     }
 }

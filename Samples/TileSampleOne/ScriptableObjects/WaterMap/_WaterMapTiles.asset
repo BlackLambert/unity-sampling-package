@@ -28,3 +28,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 44b8381ece21fb044b9a5df0b0423da6, type: 2}
   - {fileID: 11400000, guid: 88daa250fba65e840ab5b61b041342f2, type: 2}
   - {fileID: 11400000, guid: f91670f8f9498244f882f42eddc5bc27, type: 2}
+  DefaultTile: {fileID: 11400000, guid: 5db48d454aa0e1c48b2ca23e4dcbe2df, type: 2}

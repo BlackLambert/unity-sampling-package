@@ -15,6 +15,10 @@ MonoBehaviour:
   <Weight>k__BackingField: 20
   <Sprite>k__BackingField: {fileID: 21300000, guid: a0004e33cf76bfc49a0727f4fda7389e, type: 3}
   <TopSocket>k__BackingField: 5
+  <TopRightSocket>k__BackingField: 1
   <RightSocket>k__BackingField: 1
+  <BottomRightSocket>k__BackingField: 1
   <BottomSocket>k__BackingField: 5
+  <BottomLeftSocket>k__BackingField: 2
   <LeftSocket>k__BackingField: 2
+  <TopLeftSocket>k__BackingField: 2

@@ -13,6 +13,8 @@ namespace PCGToolkit.Sampling
         private Constraint<TContext> _constraint;
         private List<TSample> _domain = new List<TSample>();
         private List<TSample> _constraintDomain = new List<TSample>();
+        private TSample _defaultSample = default;
+        private bool _useDefaultSample = false;
 
         public ConstraintTileSampler(
             Selector<Coordinate2D> selector,
@@ -22,6 +24,16 @@ namespace PCGToolkit.Sampling
             _selector = selector;
             _baseSampler = baseSampler;
             _constraint = constraint;
+        }
+        
+        public ConstraintTileSampler(
+            Selector<Coordinate2D> selector,
+            SingleSampler<TSample> baseSampler,
+            Constraint<TContext> constraint,
+            TSample defaultSample) : this (selector, baseSampler, constraint)
+        {
+            _defaultSample = defaultSample;
+            _useDefaultSample = true;
         }
 
         public void UpdateDomain(IList<TSample> domain)
@@ -59,14 +71,15 @@ namespace PCGToolkit.Sampling
             context.CurrentSampleXCoordinate = coordinate.X;
             context.CurrentSampleYCoordinate = coordinate.Y;
             UpdateConstraintDomain(context);
-
-            if (_constraintDomain.Count == 0)
+            bool hasDomainElements = _constraintDomain.Count > 0;
+            
+            if (!hasDomainElements && !_useDefaultSample)
             {
                 throw new InvalidOperationException($"No sample found for (x: {coordinate.X} | y: {coordinate.Y})");
             }
 
             _baseSampler.UpdateDomain(_constraintDomain);
-            TSample sample = _baseSampler.Sample();
+            TSample sample = hasDomainElements ? _baseSampler.Sample() : _defaultSample;
             context.Grid[coordinate.X, coordinate.Y] = sample;
         }
 

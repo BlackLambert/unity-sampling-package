@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace PCGToolkit.Sampling.Examples.TileSampleOne
@@ -12,14 +13,29 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
         [field: SerializeField] public Sprite Sprite { get; private set; }
         
         [field: SerializeField, Header("Constraints")] public Socket TopSocket { get; private set; }
+        [field: SerializeField] public Socket TopRightSocket { get; private set; }
         [field: SerializeField] public Socket RightSocket { get; private set; }
+        [field: SerializeField] public Socket BottomRightSocket { get; private set; }
         [field: SerializeField] public Socket BottomSocket { get; private set; }
+        [field: SerializeField] public Socket BottomLeftSocket { get; private set; }
         [field: SerializeField] public Socket LeftSocket { get; private set; }
+        [field: SerializeField] public Socket TopLeftSocket { get; private set; }
 
-        int Tile.TopSocketId => (int)TopSocket;
-        int Tile.RightSocketId => (int)RightSocket;
-        int Tile.BottomSocketId => (int)BottomSocket;
-        int Tile.LeftSocketId => (int)LeftSocket;
+        int Tile.GetSocketIdFor(TileSide side)
+        {
+            return side switch
+            {
+                TileSide.Top => (int)TopSocket,
+                TileSide.TopRight => (int)TopRightSocket,
+                TileSide.Right => (int)RightSocket,
+                TileSide.BottomRight => (int)BottomRightSocket,
+                TileSide.Bottom => (int)BottomSocket,
+                TileSide.BottomLeft => (int)BottomLeftSocket,
+                TileSide.Left => (int)LeftSocket,
+                TileSide.TopLeft => (int)TopLeftSocket,
+                _ => throw new InvalidOperationException()
+            };
+        }
 
         public override string ToString()
         {

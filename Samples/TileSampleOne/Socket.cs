@@ -6,6 +6,7 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
 {
     public enum Socket
     {
+        Any = -1,
         None = 0,
         Water = 1,
         Land = 2,
