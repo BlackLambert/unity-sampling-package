@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace PCGToolkit.Sampling
 {
-    public class BasicTileSampler<T> : TileSampler<T> where T : Weighted
+    public class BasicTileSampler<T> : TileSampler<T>
     {
         public IReadOnlyCollection<T> Domain => _domain;
         private SingleSampler<T> _baseSampler;

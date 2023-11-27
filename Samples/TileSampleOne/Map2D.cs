@@ -20,6 +20,7 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
         private MapTile[,] _tiles;
         private System.Random _random;
         private int _currentSeed;
+        private TileSamplerFactory _factory = new TileSamplerFactory();
 
         private void Start()
         {
@@ -75,7 +76,7 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
         private void CreateBasicMap()
         {
             TileSampler<MapTileSettings> tilesSampler = 
-                TileSamplerFactory.CreateWeightedBasicSampler(_currentSeed, _tileSet.Tiles);
+                _factory.CreateWeightedBasicSampler(new Seed(_currentSeed), _tileSet.Tiles);
             Grid2D<MapTileSettings> tiles = tilesSampler.Sample(_width, _height);
             UpdateMap(tiles);
         }
@@ -83,7 +84,7 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
         private void CreateNeighbourConstraintMap()
         {
             TileSampler<MapTileSettings> tilesSampler = 
-                TileSamplerFactory.CreateWeightedNeighborConstraintSamplerWithPrioritizedSelector(_currentSeed, _tileSet.Tiles, _tileSet.DefaultTile);
+                _factory.CreateWeightedNeighborConstraintSamplerWithPrioritizedSelector(new Seed(_currentSeed), _tileSet.Tiles, _tileSet.DefaultTile);
             Grid2D<MapTileSettings> tiles = tilesSampler.Sample(_width, _height);
             UpdateMap(tiles);
         }
