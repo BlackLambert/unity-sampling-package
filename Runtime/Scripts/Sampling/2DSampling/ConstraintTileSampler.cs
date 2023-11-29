@@ -3,15 +3,12 @@ using System.Collections.Generic;
 
 namespace PCGToolkit.Sampling
 {
-    public class ConstraintTileSampler<TSample, TContext> : TileSampler<TSample>
+    public class ConstraintTileSampler<TSample, TContext> : TileSampleBase<TSample>
         where TSample : Tile
         where TContext : TileSamplingValidationContext<TSample>, new()
     {
-        public IReadOnlyCollection<TSample> Domain => _domain;
-        private Selector<Coordinate2D> _selector;
         private SingleSampler<TSample> _baseSampler;
         private Constraint<TContext> _constraint;
-        private List<TSample> _domain = new List<TSample>();
         private List<TSample> _constraintDomain = new List<TSample>();
         private TSample _defaultSample = default;
         private bool _useDefaultSample = false;
@@ -19,7 +16,7 @@ namespace PCGToolkit.Sampling
         public ConstraintTileSampler(
             Selector<Coordinate2D> selector,
             SingleSampler<TSample> baseSampler,
-            Constraint<TContext> constraint)
+            Constraint<TContext> constraint) : base(selector)
         {
             _selector = selector;
             _baseSampler = baseSampler;
@@ -36,38 +33,21 @@ namespace PCGToolkit.Sampling
             _useDefaultSample = true;
         }
 
-        public void UpdateDomain(IList<TSample> domain)
-        {
-            _domain.Clear();
-            _domain.AddRange(domain);
-        }
-
         public void UpdateConstraint(Constraint<TContext> constraint)
         {
             _constraint = constraint;
         }
 
-        public Grid2D<TSample> Sample(int size)
-        {
-            return Sample(size, size);
-        }
-
-        public Grid2D<TSample> Sample(int width, int height)
+        protected override Func<SampleStep2D<TSample>> GetSampleNextFunction(Grid2D<TSample> grid)
         {
             TContext context = new TContext();
-            context.Grid = new Grid2D<TSample>(width, height);
-            _selector.Init(CreateCoordinates(width, height));
-
-            while (_selector.HasNext())
-            {
-                SampleAt(context, _selector.GetNext());
-            }
-            
-            return context.Grid;
+            context.Grid = grid;
+            return () => SampleNext(context);
         }
 
-        private void SampleAt(TContext context, Coordinate2D coordinate)
+        private SampleStep2D<TSample> SampleNext(TContext context)
         {
+            Coordinate2D coordinate = _selector.GetNext();
             context.CurrentSampleXCoordinate = coordinate.X;
             context.CurrentSampleYCoordinate = coordinate.Y;
             UpdateConstraintDomain(context);
@@ -80,21 +60,7 @@ namespace PCGToolkit.Sampling
 
             _baseSampler.UpdateDomain(_constraintDomain);
             TSample sample = hasDomainElements ? _baseSampler.Sample() : _defaultSample;
-            context.Grid[coordinate.X, coordinate.Y] = sample;
-        }
-
-        private ICollection<Coordinate2D> CreateCoordinates(int width, int height)
-        {
-            List<Coordinate2D> result = new List<Coordinate2D>(width * height);
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    result.Add(new Coordinate2D { X = x, Y = y });
-                }
-            }
-
-            return result;
+            return new SampleStep2D<TSample>(sample, coordinate);
         }
 
         private void UpdateConstraintDomain(TContext context)

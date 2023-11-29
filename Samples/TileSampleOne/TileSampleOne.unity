@@ -274,15 +274,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tileSet: {fileID: 11400000, guid: c035d44563e5c5c44867811d464b6179, type: 2}
-  _width: 32
-  _height: 32
+  _width: 40
+  _height: 22
   _tileHook: {fileID: 417671064}
   _seed: 998
   mapTilePrefab: {fileID: 3620386604817515078, guid: e0f473d236262b245aed4ff2ce071ec5, type: 3}
   _useNeighbourConstraint: 1
   _randomizeSeed: 1
   _randomizeDelay: 5
-  _defaultTile: {fileID: 11400000, guid: ce8ae4f3bcdc72f4e916315cd31ecafd, type: 2}
+  _defaultTile: {fileID: 11400000, guid: 5db48d454aa0e1c48b2ca23e4dcbe2df, type: 2}
+  _delayBetweenTiles: 0.01
 --- !u!1 &1452336495
 GameObject:
   m_ObjectHideFlags: 0

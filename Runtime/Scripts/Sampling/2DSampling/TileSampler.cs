@@ -2,7 +2,7 @@
 {
     public interface TileSampler<T> : Sampler<T>
     {
-        Grid2D<T> Sample(int size);
-        Grid2D<T> Sample(int width, int height);
+        Sampling2DHandle<T> Sample(int size);
+        Sampling2DHandle<T> Sample(int width, int height);
     }
 }

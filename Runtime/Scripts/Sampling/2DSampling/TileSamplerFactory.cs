@@ -12,7 +12,7 @@ namespace PCGToolkit.Sampling
             where TTile : Weighted
         {
             SingleSampler<TTile> singleSampler = _singleBuilder.CreateWeighted<TTile>().With(seed).And().WithNoDomain();
-            return _tileBuilder.CreateBasicSampler<TTile>().WithSingleSampler(singleSampler).WithDomain(items);
+            return _tileBuilder.CreateBasicSampler<TTile>().WithBasicSelector().WithSingleSampler(singleSampler).WithDomain(items);
         }
         
         public TileSampler<TTile> CreateWeightedNeighborConstraintSampler<TTile>(Seed seed, IList<TTile> items) 
@@ -21,8 +21,8 @@ namespace PCGToolkit.Sampling
             SingleSampler<TTile> singleSampler = _singleBuilder.CreateWeighted<TTile>().With(seed).And().WithNoDomain();
             return _tileBuilder.CreateConstraintSampler<TTile, BasicTileSamplingValidationContext<TTile>>()
                 .WithConstraint(new TileNeighbourConstraint<TTile>())
-                .WithBasicSelector()
                 .And()
+                .WithBasicSelector()
                 .WithSingleSampler(singleSampler)
                 .WithDomain(items);
         }
@@ -34,8 +34,8 @@ namespace PCGToolkit.Sampling
             SingleSampler<TTile> singleSampler = _singleBuilder.CreateWeighted<TTile>().With(seed).And().WithNoDomain();
             return _tileBuilder.CreateConstraintSampler<TTile, BasicTileSamplingValidationContext<TTile>>()
                 .WithConstraint(new TileNeighbourConstraint<TTile>())
-                .WithPrioritizedSelector()
                 .WithDefaultTile(defaultTile)
+                .WithRandomSelector(seed.Random)
                 .WithSingleSampler(singleSampler)
                 .WithDomain(items);
         }

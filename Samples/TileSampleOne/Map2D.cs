@@ -16,6 +16,7 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
         [SerializeField] private bool _randomizeSeed = true;
         [SerializeField] private float _randomizeDelay = 5;
         [SerializeField] private MapTileSettings _defaultTile;
+        [SerializeField] private float _delayBetweenTiles = 0.1f;
 
         private MapTile[,] _tiles;
         private System.Random _random;
@@ -27,30 +28,34 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
             _currentSeed = _seed;
             _random = new System.Random(_seed);
             InitMap();
-            
-            if (_randomizeSeed)
-            {
-                InvokeRepeating(nameof(CreateRandomMap), 0, _randomizeDelay);
-            }
-            else
-            {
-                CreateMap();
-            }
+            CreateRandomMap();
         }
 
         private void InitMap()
         {
             _tiles = new MapTile[_height, _width];
+            MapTileSettings tileSetting = _defaultTile;
             for (int row = 0; row < _height; row++)
             {
                 for (int column = 0; column < _width; column++)
                 {
-                    MapTileSettings tileSetting = _defaultTile;
                     MapTile mapTile = Instantiate(mapTilePrefab, _tileHook);
                     mapTile.SetSprite(tileSetting.Sprite);
                     mapTile.RectTransform.localPosition =
                         new Vector3(column * MapTileSettings.TileWidth, row * MapTileSettings.TileHeight, 0);
                     _tiles[row, column] = mapTile;
+                }
+            }
+        }
+
+        private void ResetMap()
+        {
+            MapTileSettings tileSetting = _defaultTile;
+            for (int row = 0; row < _height; row++)
+            {
+                for (int column = 0; column < _width; column++)
+                {
+                    _tiles[row, column].SetSprite(tileSetting.Sprite);
                 }
             }
         }
@@ -65,38 +70,41 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
         {
             if (_useNeighbourConstraint)
             {
-                CreateNeighbourConstraintMap();
+                TileSampler<MapTileSettings> sampler = 
+                    _factory.CreateWeightedNeighborConstraintSamplerWithPrioritizedSelector(
+                        new Seed(_currentSeed),
+                        _tileSet.Tiles, 
+                        _tileSet.DefaultTile);
+                StartCoroutine(CreateMap(sampler));
             }
             else
             {
-                CreateBasicMap();
+                TileSampler<MapTileSettings> sampler = 
+                    _factory.CreateWeightedBasicSampler(new Seed(_currentSeed), _tileSet.Tiles);
+                StartCoroutine(CreateMap(sampler));
             }
         }
 
-        private void CreateBasicMap()
+        private IEnumerator CreateMap(TileSampler<MapTileSettings> sampler)
         {
-            TileSampler<MapTileSettings> tilesSampler = 
-                _factory.CreateWeightedBasicSampler(new Seed(_currentSeed), _tileSet.Tiles);
-            Grid2D<MapTileSettings> tiles = tilesSampler.Sample(_width, _height);
-            UpdateMap(tiles);
-        }
-
-        private void CreateNeighbourConstraintMap()
-        {
-            TileSampler<MapTileSettings> tilesSampler = 
-                _factory.CreateWeightedNeighborConstraintSamplerWithPrioritizedSelector(new Seed(_currentSeed), _tileSet.Tiles, _tileSet.DefaultTile);
-            Grid2D<MapTileSettings> tiles = tilesSampler.Sample(_width, _height);
-            UpdateMap(tiles);
-        }
-
-        private void UpdateMap(Grid2D<MapTileSettings> tiles)
-        {
-            for (int row = 0; row < _height; row++)
+            Sampling2DHandle<MapTileSettings> handle = sampler.Sample(_width, _height);
+            while (!handle.IsFinished)
             {
-                for (int column = 0; column < _width; column++)
-                {
-                    _tiles[row, column].SetSprite(tiles[column, row].Sprite);
-                }
+                SampleStep2D<MapTileSettings> step = handle.ExecuteNextStep();
+                _tiles[step.Coordinate.Y, step.Coordinate.X].SetSprite(step.Item.Sprite);
+                yield return new WaitForSeconds(_delayBetweenTiles);
+            }
+
+            StartCoroutine(HandleMapDrawFinished());
+        }
+
+        private IEnumerator HandleMapDrawFinished()
+        {
+            if (_randomizeSeed)
+            {
+                yield return new WaitForSeconds(_randomizeDelay);
+                ResetMap();
+                CreateRandomMap();
             }
         }
     }

@@ -9,99 +9,108 @@ namespace PCGToolkit.Sampling
             where TTile : Tile
             where TContext : TileSamplingValidationContext<TTile>, new()
         {
-            return new ConstraintStep<TTile, TContext>();
+            return new ConstraintStep<TTile, TContext>(new ConstraintSamplerContext<TTile, TContext>());
         }
 
-        public WithSimpleSamplerStep<TTile> CreateBasicSampler<TTile>()
+        public SelectorStep<TTile> CreateBasicSampler<TTile>()
         {
-            return new WithSimpleSamplerStep<TTile>(sampler => new BasicTileSampler<TTile>(sampler));
+            return new SelectorStep<TTile>(new BasicSamplerContext<TTile>());
         }
 
         public class ConstraintStep<TTile, TContext>
             where TTile : Tile
             where TContext : TileSamplingValidationContext<TTile>, new()
         {
-            public SelectorStep<TTile, TContext> WithConstraint(Constraint<TContext> constraint)
-            {
-                return new SelectorStep<TTile, TContext>(constraint);
-            }
-        }
-        
-        public class SelectorStep<TTile, TContext> 
-            where TTile : Tile
-            where TContext : TileSamplingValidationContext<TTile>, new()
-        {
-            private readonly Constraint<TContext> _constraint;
+            private readonly ConstraintSamplerContext<TTile, TContext> _context;
 
-            public SelectorStep(Constraint<TContext> constraint)
+            public ConstraintStep(ConstraintSamplerContext<TTile, TContext> context)
             {
-                _constraint = constraint;
+                _context = context;
             }
-
-            public DefaultTileStep<TTile, TContext> WithBasicSelector()
+            
+            public DefaultTileStep<TTile, TContext> WithConstraint(Constraint<TContext> constraint)
             {
-                return new DefaultTileStep<TTile, TContext>(new BasicSelector<Coordinate2D>(), _constraint);
-            }
-
-            public DefaultTileStep<TTile, TContext> WithPrioritizedSelector(int initialPriority)
-            {
-                return new DefaultTileStep<TTile, TContext>(new PrioritizedSelector<Coordinate2D>(initialPriority), _constraint);
-            }
-
-            public DefaultTileStep<TTile, TContext> WithPrioritizedSelector()
-            {
-                return new DefaultTileStep<TTile, TContext>(new PrioritizedSelector<Coordinate2D>(), _constraint);
+                _context.Constraint = constraint;
+                return new DefaultTileStep<TTile, TContext>(_context);
             }
         }
 
-        public class DefaultTileStep<TTile, TContext> 
+        public class DefaultTileStep<TTile, TContext>
             where TTile : Tile
             where TContext : TileSamplingValidationContext<TTile>, new()
         {
-            private readonly Selector<Coordinate2D> _selector;
-            private readonly Constraint<TContext> _constraint;
+            private readonly ConstraintSamplerContext<TTile, TContext> _context;
 
-            public DefaultTileStep(
-                Selector<Coordinate2D> selector,
-                Constraint<TContext> constraint)
+            public DefaultTileStep(ConstraintSamplerContext<TTile, TContext> context)
             {
-                _selector = selector;
-                _constraint = constraint;
+                _context = context;
             }
 
-            public WithSimpleSamplerStep<TTile> And()
+            public SelectorStep<TTile> And()
             {
-                return new WithSimpleSamplerStep<TTile>(Create);
+                return new SelectorStep<TTile>(_context);
             }
 
-            public WithSimpleSamplerStep<TTile> WithDefaultTile(TTile tile)
+            public SelectorStep<TTile> WithDefaultTile(TTile tile)
             {
-                return new WithSimpleSamplerStep<TTile>(sampler => Create(sampler, tile));
+                _context.DefaultTile = tile;
+                return new SelectorStep<TTile>(_context);
+            }
+        }
+
+        public class SelectorStep<TTile>
+        {
+            private readonly Context<TTile> _context;
+
+            public SelectorStep(Context<TTile> context)
+            {
+                _context = context;
             }
 
-            private ConstraintTileSampler<TTile, TContext> Create(SingleSampler<TTile> singleSampler)
+            public WithSimpleSamplerStep<TTile> WithSelector(Selector<Coordinate2D> selector)
             {
-                return new ConstraintTileSampler<TTile, TContext>(_selector, singleSampler, _constraint);
+                _context.Selector = selector;
+                return new WithSimpleSamplerStep<TTile>(_context);
             }
 
-            private ConstraintTileSampler<TTile, TContext> Create(SingleSampler<TTile> singleSampler, TTile tile)
+            public WithSimpleSamplerStep<TTile> WithBasicSelector()
             {
-                return new ConstraintTileSampler<TTile, TContext>(_selector, singleSampler, _constraint, tile);
+                _context.Selector = new BasicSelector<Coordinate2D>();
+                return new WithSimpleSamplerStep<TTile>(_context);
+            }
+
+            public WithSimpleSamplerStep<TTile> WithPrioritizedSelector(int initialPriority)
+            {
+                _context.Selector = new PrioritizedSelector<Coordinate2D>(initialPriority);
+                return new WithSimpleSamplerStep<TTile>(_context);
+            }
+
+            public WithSimpleSamplerStep<TTile> WithRandomSelector(Random random)
+            {
+                _context.Selector = new RandomSelector<Coordinate2D>(random);
+                return new WithSimpleSamplerStep<TTile>(_context);
+            }
+
+            public WithSimpleSamplerStep<TTile> WithPrioritizedSelector()
+            {
+                _context.Selector = new PrioritizedSelector<Coordinate2D>();
+                return new WithSimpleSamplerStep<TTile>(_context);
             }
         }
 
         public class WithSimpleSamplerStep<TTile>
         {
-            private Func<SingleSampler<TTile>, TileSampler<TTile>> _createFunction;
-            
-            public WithSimpleSamplerStep(Func<SingleSampler<TTile>, TileSampler<TTile>> createFunction)
+            private Context<TTile> _context;
+
+            public WithSimpleSamplerStep(Context<TTile> context)
             {
-                _createFunction = createFunction;
+                _context = context;
             }
-            
+
             public UpdateDomainStep<TTile> WithSingleSampler(SingleSampler<TTile> singleSampler)
             {
-                return new UpdateDomainStep<TTile>(_createFunction(singleSampler));
+                _context.SingleSampler = singleSampler;
+                return new UpdateDomainStep<TTile>(_context.Build());
             }
         }
 
@@ -113,7 +122,7 @@ namespace PCGToolkit.Sampling
             {
                 _sampler = sampler;
             }
-            
+
             public TileSampler<T> WithDomain(IList<T> domain)
             {
                 _sampler.UpdateDomain(domain);
@@ -125,6 +134,36 @@ namespace PCGToolkit.Sampling
                 _sampler.UpdateDomain(new List<T>());
                 return _sampler;
             }
+        }
+
+        public class ConstraintSamplerContext<TTile, TContext> : Context<TTile>
+            where TTile : Tile
+            where TContext : TileSamplingValidationContext<TTile>, new()
+        {
+            public TTile DefaultTile { get; set; }
+            public Constraint<TContext> Constraint { get; set; }
+
+            public override TileSampler<TTile> Build()
+            {
+                return DefaultTile == null
+                    ? new ConstraintTileSampler<TTile, TContext>(Selector, SingleSampler, Constraint)
+                    : new ConstraintTileSampler<TTile, TContext>(Selector, SingleSampler, Constraint, DefaultTile);
+            }
+        }
+
+        public class BasicSamplerContext<T> : Context<T>
+        {
+            public override TileSampler<T> Build()
+            {
+                return new BasicTileSampler<T>(SingleSampler, Selector);
+            }
+        }
+
+        public abstract class Context<T>
+        {
+            public Selector<Coordinate2D> Selector { get; set; }
+            public SingleSampler<T> SingleSampler { get; set; }
+            public abstract TileSampler<T> Build();
         }
     }
 }
