@@ -1,8 +1,11 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace PCGToolkit.Sampling
 {
-	public class CubeBounds : Bounds
+	public class CubeBounds : Bounds3D
 	{
 		private readonly Vector3 _leftFront;
 		private Vector3 _size;

@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace PCGToolkit.Sampling.Examples
 {
-    public class SamplesGizmoDrawer : MonoBehaviour
+    public class SamplesGizmoDrawer3D : MonoBehaviour
     {
         [SerializeField]
         private int _samplesAmount = 10;
         [SerializeField]
-        private BoundsSettings _boundsSettings;
+        private BoundsSettings3D _boundsSettings;
         [SerializeField]
         private Vector3 _startPosition = new Vector3(1, 1, 1);
         [SerializeField]
@@ -32,7 +32,7 @@ namespace PCGToolkit.Sampling.Examples
         private List<Vector3> _samples = new List<Vector3>();
         private List<GameObject> _sampleObjects = new List<GameObject>();
         private List<GameObject> _connections = new List<GameObject>();
-        private Bounds _bounds;
+        private Bounds3D _bounds;
 
         private void Start()
 		{
@@ -55,10 +55,10 @@ namespace PCGToolkit.Sampling.Examples
             Vector3 center = _boundsSettings.GetCenter();
             switch(_boundsSettings.BoundsType)
 			{
-                case BoundsSettings.Type.Cube:
+                case BoundsSettings3D.Type.Cube:
                     Gizmos.DrawCube(_boundsSettings.GetCenter(), (_boundsSettings as CubeBoundsSettings).Size);
                     break;
-                case BoundsSettings.Type.Sphere:
+                case BoundsSettings3D.Type.Sphere:
                     Gizmos.DrawSphere(_boundsSettings.GetCenter(), (_boundsSettings as SphereBoundsSettings).Radius);
                     break;
                 default:

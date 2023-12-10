@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace PCGToolkit.Sampling.Examples
 {
-    public abstract class BoundsSettings : ScriptableObject
+    public abstract class BoundsSettings3D : ScriptableObject
     {
-        public abstract Bounds GetBounds(); 
+        public abstract Bounds3D GetBounds();
         public abstract Vector3 GetCenter();
         public abstract Type BoundsType { get; }
 

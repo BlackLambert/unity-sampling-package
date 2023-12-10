@@ -24,7 +24,7 @@ namespace PCGToolkit.Sampling
 				throw new InvalidMinDistanceException();
 		}
 
-		private void ValidateStartPosition(Bounds bounds, Vector3 startPos)
+		private void ValidateStartPosition(Bounds3D bounds, Vector3 startPos)
 		{
 			if (!bounds.Contains(startPos))
 				throw new InvalidStartPositionException();

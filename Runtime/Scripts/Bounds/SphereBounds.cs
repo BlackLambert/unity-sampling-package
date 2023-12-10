@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PCGToolkit.Sampling
 {
-	public class SphereBounds : Bounds
+	public class SphereBounds : Bounds3D
 	{
 		private Vector3 _center;
 		private float _radius;
@@ -31,7 +31,7 @@ namespace PCGToolkit.Sampling
 
 		public override string ToString()
 		{
-			return $"{nameof(SphereBounds)}({nameof(_center)} {_center.ToString()} | {nameof(_radius)} {_radius})";
+			return $"{nameof(SphereBounds)}({nameof(_center)} {_center.ToString()} | {nameof(_radius)} {_radius.ToString()})";
 		}
 	}
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace PCGToolkit.Sampling.Examples
 {
 	[CreateAssetMenu(fileName = "SphereBoundsSettings", menuName = "Sampling/Examples/SphereBoundsSettings")]
-	public class SphereBoundsSettings : BoundsSettings
+	public class SphereBoundsSettings : BoundsSettings3D
     {
 
         [SerializeField]
@@ -16,7 +16,7 @@ namespace PCGToolkit.Sampling.Examples
 
 		public override Type BoundsType => Type.Sphere;
 
-		public override Bounds GetBounds()
+		public override Bounds3D GetBounds()
 		{
 			return new SphereBounds(_center, _radius);
 		}

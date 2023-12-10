@@ -6,7 +6,7 @@ namespace PCGToolkit.Sampling.Tests
 {
     public abstract class BoundsTest
     {
-		private Bounds _bounds;
+		private Bounds3D _bounds;
         private bool _isWithinBounds;
         private Vector3 _testPoint;
 
@@ -88,8 +88,8 @@ namespace PCGToolkit.Sampling.Tests
         }
 
 
-        protected abstract Bounds CreateBounds(int index);
-        protected abstract Bounds CreateInvalidBounds(int index);
+        protected abstract Bounds3D CreateBounds(int index);
+        protected abstract Bounds3D CreateInvalidBounds(int index);
         protected abstract Vector3 GetPointInside(int index);
         protected abstract Vector3 GetPointOutside(int index);
         protected abstract int TestValuesAmount { get; }
