@@ -1,6 +1,6 @@
 {
   "name": "com.sbaier.unitysampling",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "Unity Sampling",
   "description": "Sampling algorithms implemented for the Unity Game Engine",
   "unity": "2021.2",
