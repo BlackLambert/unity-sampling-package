@@ -62,7 +62,7 @@ namespace PCGToolkit.Sampling.Tests
 
 		protected override int TestValuesAmount => _testSizes.Length;
 
-		protected override Bounds3D CreateBounds(int index)
+		protected override Bounds<Vector3> CreateBounds(int index)
 		{
 			return new CubeBounds(_testStartPositions[index], _testSizes[index]);
 		}
@@ -78,7 +78,7 @@ namespace PCGToolkit.Sampling.Tests
 			Assert.IsTrue(toString.Contains(nameof(CubeBounds)));
 		}
 
-		protected override Bounds3D CreateInvalidBounds(int index)
+		protected override Bounds<Vector3> CreateInvalidBounds(int index)
 		{
 			return new CubeBounds(_testStartPositions[index], _testInvalidSizes[index]);
 		}

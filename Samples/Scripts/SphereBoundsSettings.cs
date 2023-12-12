@@ -14,9 +14,7 @@ namespace PCGToolkit.Sampling.Examples
 		[SerializeField]
 		private Vector3 _center = Vector3.zero;
 
-		public override Type BoundsType => Type.Sphere;
-
-		public override Bounds3D GetBounds()
+		public override Bounds<Vector3> GetBounds()
 		{
 			return new SphereBounds(_center, _radius);
 		}

@@ -14,9 +14,7 @@ namespace PCGToolkit.Sampling.Examples
 		[SerializeField]
 		private Vector3 _leftFront = Vector3.zero;
 
-		public override Type BoundsType => Type.Cube;
-
-		public override Bounds3D GetBounds()
+		public override Bounds<Vector3> GetBounds()
 		{
 			return new CubeBounds(_leftFront, _bounds);
 		}

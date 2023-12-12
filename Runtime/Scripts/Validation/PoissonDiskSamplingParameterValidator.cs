@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace PCGToolkit.Sampling
 {
-	public class PoissonDiskSampling2DParameterValidator : Validator<PoissonDiskSampling2D.Parameters>
+	public class PoissonDiskSamplingParameterValidator<T> : Validator<PoissonDiskSampling<T>.Parameters>
 	{
-		public void Validate(PoissonDiskSampling2D.Parameters parameters)
+		public void Validate(PoissonDiskSampling<T>.Parameters parameters)
 		{
 			ValidateAmount(parameters.Amount);
 			ValidateMinDistance(parameters.MinDistance);
@@ -24,7 +24,7 @@ namespace PCGToolkit.Sampling
 				throw new InvalidMinDistanceException();
 		}
 
-		private void ValidateStartPosition(Bounds2D bounds, Vector2 startPos)
+		private void ValidateStartPosition(Bounds<T> bounds, T startPos)
 		{
 			if (!bounds.Contains(startPos))
 				throw new InvalidStartPositionException();

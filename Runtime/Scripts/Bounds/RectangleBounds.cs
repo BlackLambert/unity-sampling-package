@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PCGToolkit.Sampling
 {
-    public class RectangleBounds : Bounds2D
+    public class RectangleBounds : Bounds<Vector2>
 	{
 		private readonly Vector2 _bottomLeftCorner;
 		private readonly Vector2 _size;

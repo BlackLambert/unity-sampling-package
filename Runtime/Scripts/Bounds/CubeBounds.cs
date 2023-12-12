@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PCGToolkit.Sampling
 {
-	public class CubeBounds : Bounds3D
+	public class CubeBounds : Bounds<Vector3>
 	{
 		private readonly Vector3 _leftFront;
 		private Vector3 _size;

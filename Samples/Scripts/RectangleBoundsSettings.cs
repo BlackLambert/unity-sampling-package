@@ -11,9 +11,7 @@ namespace PCGToolkit.Sampling.Examples
 		[SerializeField]
 		private Vector2 _bottomLeft = Vector2.zero;
 
-		public override Type BoundsType => Type.Rectangle;
-
-		public override Bounds2D GetBounds()
+		public override Bounds<Vector2> GetBounds()
 		{
 			return new RectangleBounds(_bottomLeft, _bounds);
 		}

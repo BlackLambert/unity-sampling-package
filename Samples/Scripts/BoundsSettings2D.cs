@@ -6,13 +6,7 @@ namespace PCGToolkit.Sampling.Examples
 {
     public abstract class BoundsSettings2D : ScriptableObject
     {
-        public abstract Bounds2D GetBounds();
+        public abstract Bounds<Vector2> GetBounds();
         public abstract Vector2 GetCenter();
-        public abstract Type BoundsType { get; }
-
-        public enum Type
-        {
-            Rectangle
-        }
     }
 }

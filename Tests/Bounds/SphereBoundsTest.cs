@@ -52,7 +52,7 @@ namespace PCGToolkit.Sampling.Tests
 
 		protected override int TestValuesAmount => _testRadius.Length;
 
-		protected override Bounds3D CreateBounds(int index)
+		protected override Bounds<Vector3> CreateBounds(int index)
 		{
 			return new SphereBounds(_testStartPositions[index], _testRadius[index]);
 		}
@@ -68,7 +68,7 @@ namespace PCGToolkit.Sampling.Tests
 			Assert.IsTrue(toString.Contains(nameof(SphereBounds)));
 		}
 
-		protected override Bounds3D CreateInvalidBounds(int index)
+		protected override Bounds<Vector3> CreateInvalidBounds(int index)
 		{
 			return new SphereBounds(_testStartPositions[index], _testInvalidRadius[index]);
 		}

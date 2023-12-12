@@ -32,7 +32,7 @@ namespace PCGToolkit.Sampling.Examples
         private List<Vector2> _samples = new List<Vector2>();
         private List<GameObject> _sampleObjects = new List<GameObject>();
         private List<GameObject> _connections = new List<GameObject>();
-        private Bounds2D _bounds;
+        private Bounds<Vector2> _bounds;
 
         private void Start()
 		{
@@ -53,10 +53,10 @@ namespace PCGToolkit.Sampling.Examples
         private void DrawBounds()
 		{
             Vector3 center = _boundsSettings.GetCenter();
-            switch(_boundsSettings.BoundsType)
+            switch(_boundsSettings)
 			{
-                case BoundsSettings2D.Type.Rectangle:
-                    Gizmos.DrawCube(_boundsSettings.GetCenter(), (_boundsSettings as RectangleBoundsSettings).Size);
+                case RectangleBoundsSettings rectangleBoundsSettings:
+                    Gizmos.DrawCube(_boundsSettings.GetCenter(), rectangleBoundsSettings.Size);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -78,7 +78,7 @@ namespace PCGToolkit.Sampling.Examples
 
         private void CreateSamples()
 		{
-            _samples = new PoissonDiskSampling2D(new System.Random(_seed), _retries, new PoissonDiskSampling2DParameterValidator()).
+            _samples = new PoissonDiskSampling2D(new System.Random(_seed), _retries, new PoissonDiskSamplingParameterValidator<Vector2>()).
                 Sample(new PoissonDiskSampling2D.Parameters(_samplesAmount, _minimalDistance, _bounds, _startPosition));
             foreach (Vector3 sample in _samples)
             {

@@ -31,8 +31,8 @@ namespace PCGToolkit.Sampling.Tests
 			new Vector3(140, 151, 50)
 		};
 
-		private Validator<PoissonDiskSampling3D.Parameters> _validator;
-		private Mock<Bounds3D> _boundsMock;
+		private PoissonDiskSamplingParameterValidator<Vector3> _validator;
+		private Mock<Bounds<Vector3>> _boundsMock;
 
 
 		[Test]
@@ -84,12 +84,12 @@ namespace PCGToolkit.Sampling.Tests
 
 		private void GivenANewValidator()
 		{
-			_validator = new PoissonDiskSampling3DParameterValidator();
+			_validator = new PoissonDiskSamplingParameterValidator<Vector3>();
 		}
 
 		private void GivenMockedBoundsReturning(bool value)
 		{
-			_boundsMock = new Mock<Bounds3D>();
+			_boundsMock = new Mock<Bounds<Vector3>>();
 			_boundsMock.Setup(b => b.Contains(It.IsAny<Vector3>())).Returns(value);
 		}
 
@@ -136,17 +136,17 @@ namespace PCGToolkit.Sampling.Tests
 
 		private void ThenThrowsInvalidAmountException(TestDelegate test)
 		{
-			Assert.Throws<PoissonDiskSampling3DParameterValidator.InvalidAmountException>(test);
+			Assert.Throws<PoissonDiskSamplingParameterValidator<Vector3>.InvalidAmountException>(test);
 		}
 
 		private void ThenThrowsInvalidMinDistanceException(TestDelegate test)
 		{
-			Assert.Throws<PoissonDiskSampling3DParameterValidator.InvalidMinDistanceException>(test);
+			Assert.Throws<PoissonDiskSamplingParameterValidator<Vector3>.InvalidMinDistanceException>(test);
 		}
 
 		private void ThenThrowsInvalidStartPositionException(TestDelegate test)
 		{
-			Assert.Throws<PoissonDiskSampling3DParameterValidator.InvalidStartPositionException>(test);
+			Assert.Throws<PoissonDiskSamplingParameterValidator<Vector3>.InvalidStartPositionException>(test);
 		}
 
 		private void ThenThrowsNoException(TestDelegate test)

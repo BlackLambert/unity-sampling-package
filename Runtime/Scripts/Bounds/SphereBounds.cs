@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PCGToolkit.Sampling
 {
-	public class SphereBounds : Bounds3D
+	public class SphereBounds : Bounds<Vector3>
 	{
 		private Vector3 _center;
 		private float _radius;

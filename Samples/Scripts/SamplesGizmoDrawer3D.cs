@@ -32,7 +32,7 @@ namespace PCGToolkit.Sampling.Examples
         private List<Vector3> _samples = new List<Vector3>();
         private List<GameObject> _sampleObjects = new List<GameObject>();
         private List<GameObject> _connections = new List<GameObject>();
-        private Bounds3D _bounds;
+        private Bounds<Vector3> _bounds;
 
         private void Start()
 		{
@@ -53,13 +53,13 @@ namespace PCGToolkit.Sampling.Examples
         private void DrawBounds()
 		{
             Vector3 center = _boundsSettings.GetCenter();
-            switch(_boundsSettings.BoundsType)
+            switch(_boundsSettings)
 			{
-                case BoundsSettings3D.Type.Cube:
-                    Gizmos.DrawCube(_boundsSettings.GetCenter(), (_boundsSettings as CubeBoundsSettings).Size);
+                case CubeBoundsSettings cubeSettings:
+                    Gizmos.DrawCube(_boundsSettings.GetCenter(), (cubeSettings).Size);
                     break;
-                case BoundsSettings3D.Type.Sphere:
-                    Gizmos.DrawSphere(_boundsSettings.GetCenter(), (_boundsSettings as SphereBoundsSettings).Radius);
+                case SphereBoundsSettings sphereSettings:
+                    Gizmos.DrawSphere(_boundsSettings.GetCenter(), (sphereSettings).Radius);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -81,7 +81,7 @@ namespace PCGToolkit.Sampling.Examples
 
         private void CreateSamples()
 		{
-            _samples = new PoissonDiskSampling3D(new System.Random(_seed), _retries, new PoissonDiskSampling3DParameterValidator()).
+            _samples = new PoissonDiskSampling3D(new System.Random(_seed), _retries, new PoissonDiskSamplingParameterValidator<Vector3>()).
                 Sample(new PoissonDiskSampling3D.Parameters(_samplesAmount, _minimalDistance, _bounds, _startPosition));
             foreach (Vector3 sample in _samples)
             {
