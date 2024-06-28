@@ -2,6 +2,6 @@
 {
     public interface Tile : Weighted
     {
-        public int GetSocketIdFor(TileSide tileSide);
+        public int GetSocketIdFor(int tileSideId);
     }
 }

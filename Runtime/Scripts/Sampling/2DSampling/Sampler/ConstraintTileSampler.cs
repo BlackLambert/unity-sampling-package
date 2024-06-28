@@ -48,8 +48,7 @@ namespace PCGToolkit.Sampling
         private SampleStep2D<TSample> SampleNext(TContext context)
         {
             Coordinate2D coordinate = _selector.GetNext();
-            context.CurrentSampleXCoordinate = coordinate.X;
-            context.CurrentSampleYCoordinate = coordinate.Y;
+            context.CurrentSampleCoordinate = coordinate;
             UpdateConstraintDomain(context);
             bool hasDomainElements = _constraintDomain.Count > 0;
             

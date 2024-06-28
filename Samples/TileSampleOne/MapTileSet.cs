@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace PCGToolkit.Sampling.Examples.TileSampleOne
 {
@@ -8,6 +9,6 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
     public class MapTileSet : ScriptableObject
     {
         [field: SerializeField] public List<MapTileSettings> Tiles { get; private set; } = new List<MapTileSettings>();
-        [field: SerializeField] public MapTileSettings DefaultTile = null;
+        [FormerlySerializedAs("defaultRectTile")] [FormerlySerializedAs("DefaultTile")] [field: SerializeField] public MapTileSettings defaultTile = null;
     }
 }

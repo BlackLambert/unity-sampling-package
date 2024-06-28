@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace PCGToolkit.Sampling.Examples.TileSampleOne
 {
@@ -15,7 +16,7 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
         [SerializeField] private bool _useNeighbourConstraint = true;
         [SerializeField] private bool _randomizeSeed = true;
         [SerializeField] private float _randomizeDelay = 5;
-        [SerializeField] private MapTileSettings _defaultTile;
+        [FormerlySerializedAs("defaultRectTile")] [FormerlySerializedAs("_defaultTile")] [SerializeField] private MapTileSettings defaultTile;
         [SerializeField] private float _delayBetweenTiles = 0.1f;
 
         private MapTile[,] _tiles;
@@ -34,7 +35,7 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
         private void InitMap()
         {
             _tiles = new MapTile[_height, _width];
-            MapTileSettings tileSetting = _defaultTile;
+            MapTileSettings tileSetting = defaultTile;
             for (int row = 0; row < _height; row++)
             {
                 for (int column = 0; column < _width; column++)
@@ -50,7 +51,7 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
 
         private void ResetMap()
         {
-            MapTileSettings tileSetting = _defaultTile;
+            MapTileSettings tileSetting = defaultTile;
             for (int row = 0; row < _height; row++)
             {
                 for (int column = 0; column < _width; column++)
@@ -74,7 +75,7 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
                     _factory.CreateWeightedNeighborConstraintSamplerWithPrioritizedSelector(
                         new Seed(_currentSeed),
                         _tileSet.Tiles, 
-                        _tileSet.DefaultTile);
+                        _tileSet.defaultTile);
                 StartCoroutine(CreateMap(sampler));
             }
             else

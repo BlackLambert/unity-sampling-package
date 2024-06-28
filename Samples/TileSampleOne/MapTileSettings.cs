@@ -21,18 +21,18 @@ namespace PCGToolkit.Sampling.Examples.TileSampleOne
         [field: SerializeField] public Socket LeftSocket { get; private set; }
         [field: SerializeField] public Socket TopLeftSocket { get; private set; }
 
-        int Tile.GetSocketIdFor(TileSide side)
+        int Tile.GetSocketIdFor(RectTileSide side)
         {
             return side switch
             {
-                TileSide.Top => (int)TopSocket,
-                TileSide.TopRight => (int)TopRightSocket,
-                TileSide.Right => (int)RightSocket,
-                TileSide.BottomRight => (int)BottomRightSocket,
-                TileSide.Bottom => (int)BottomSocket,
-                TileSide.BottomLeft => (int)BottomLeftSocket,
-                TileSide.Left => (int)LeftSocket,
-                TileSide.TopLeft => (int)TopLeftSocket,
+                RectTileSide.Top => (int)TopSocket,
+                RectTileSide.TopRight => (int)TopRightSocket,
+                RectTileSide.Right => (int)RightSocket,
+                RectTileSide.BottomRight => (int)BottomRightSocket,
+                RectTileSide.Bottom => (int)BottomSocket,
+                RectTileSide.BottomLeft => (int)BottomLeftSocket,
+                RectTileSide.Left => (int)LeftSocket,
+                RectTileSide.TopLeft => (int)TopLeftSocket,
                 _ => throw new InvalidOperationException()
             };
         }
