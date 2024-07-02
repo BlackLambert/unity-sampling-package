@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace PCGToolkit.Sampling
+namespace SBaier.Sampling
 {
     public interface Weighted
     {

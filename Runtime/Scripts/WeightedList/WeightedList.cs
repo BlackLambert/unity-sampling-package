@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace PCGToolkit.Sampling
+namespace SBaier.Sampling
 {
     public class WeightedList<T> : IDictionary<T, float>
     {

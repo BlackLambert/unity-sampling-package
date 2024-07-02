@@ -2,7 +2,7 @@ using NUnit.Framework;
 using System;
 using UnityEngine;
 
-namespace PCGToolkit.Sampling.Tests
+namespace SBaier.Sampling.Tests
 {
     public abstract class BoundsTest
     {

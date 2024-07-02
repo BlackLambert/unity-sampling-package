@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 
-namespace PCGToolkit.Sampling
+namespace SBaier.Sampling
 {
-    public interface SetSampler<TSample> : Sampler<TSample>
+    public interface SetSampler<T>
     {
-        List<TSample> Sample();
+        List<T> Sample();
+        void UpdateDomain(IList<T> domain);
     }
 }

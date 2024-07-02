@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace PCGToolkit.Sampling
+namespace SBaier.Sampling
 {
     public class ConstraintSetSampler<TSample, TContext> : SetSampler<TSample> 
         where TContext : SetSamplingValidationContext<TSample>, new()
@@ -8,13 +8,13 @@ namespace PCGToolkit.Sampling
         public IReadOnlyCollection<TSample> Domain => _domain;
 
         private readonly int _sampleMaximum;
-        private readonly SingleSampler<TSample> _baseSingleSampler;
+        private readonly Sampler<TSample> _baseSingleSampler;
         private Constraint<TContext> _constraint;
         private List<TSample> _constraintDomain;
         private List<TSample> _domain;
 
         public ConstraintSetSampler(
-            SingleSampler<TSample> baseSingleSampler, 
+            Sampler<TSample> baseSingleSampler, 
             Constraint<TContext> constraint,
             int sampleMaximum = 100)
         {

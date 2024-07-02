@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace PCGToolkit.Sampling
+namespace SBaier.Sampling
 {
-    public abstract class WeightedSampler<T> : Sampler<T> where T : Weighted
+    public class WeightedSampler<T> : Sampler<T> where T : Weighted
     {
-        public IReadOnlyCollection<T> Domain => _weightedDomain.ReadonlyKeys;
-
+        public bool HasSample => _weightedDomain.Count > 0;
+        
         protected readonly WeightedList<T> _weightedDomain;
 
         public WeightedSampler(Random random)
@@ -14,12 +14,28 @@ namespace PCGToolkit.Sampling
             _weightedDomain = new WeightedList<T>(random);
         }
 
-        public void UpdateDomain(IList<T> domain)
+        public T Sample()
+        {
+            return _weightedDomain.GetRandomItem();
+        }
+
+        public List<T> Sample(int amount)
+        {
+            List<T> result = new List<T>(amount);
+            
+            for (int i = 0; i < amount; i++)
+            {
+                result.Add(_weightedDomain.GetRandomItem());
+            }
+
+            return result;
+        }
+
+        public void UpdateDomain(IEnumerable<T> domain)
         {
             _weightedDomain.Clear();
-            for (int i = 0; i < domain.Count; i++)
+            foreach (T sample in domain)
             {
-                T sample = domain[i];
                 _weightedDomain.Add(sample, sample.Weight);
             }
         }

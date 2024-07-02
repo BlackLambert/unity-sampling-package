@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 
-namespace PCGToolkit.Sampling.Tests
+namespace SBaier.Sampling.Tests
 {
 	public class SphereBoundsTest : BoundsTest
 	{

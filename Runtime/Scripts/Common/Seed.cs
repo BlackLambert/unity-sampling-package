@@ -1,6 +1,6 @@
 using System;
 
-namespace PCGToolkit
+namespace SBaier
 {
     public class Seed
     {
