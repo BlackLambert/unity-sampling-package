@@ -21,7 +21,7 @@ namespace SBaier.Sampling
             {
                 for (int column = 0; column < width; column++)
                 {
-                    result.Add(_rotation.CreateHexCoordinates(_indentation, new Coordinate2D(column, row)));
+                    result.Add(_rotation.ConvertToHexCoordinates(_indentation, new Coordinate2D(column, row)));
                 }
             }
 
@@ -30,7 +30,7 @@ namespace SBaier.Sampling
 
         public Coordinate2D ToGridCoordinate(Coordinate2D hexCoordinate)
         {
-            return _rotation.CreateGridCoordinates(_indentation, hexCoordinate);
+            return _rotation.ConvertToGridCoordinates(_indentation, hexCoordinate);
         }
     }
 }

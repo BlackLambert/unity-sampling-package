@@ -13,7 +13,7 @@ namespace SBaier.Sampling
     {
         private const float _maxTileSizeToMinFactor = 0.866f;
 
-        public static Coordinate2D CreateHexCoordinates(
+        public static Coordinate2D ConvertToHexCoordinates(
             this HexTileRotation rotation, 
             HexGridIndentation indentation,
             Coordinate2D gridCoordinate)
@@ -25,7 +25,7 @@ namespace SBaier.Sampling
             };
         }
         
-        public static Coordinate2D CreateGridCoordinates(
+        public static Coordinate2D ConvertToGridCoordinates(
             this HexTileRotation rotation, 
             HexGridIndentation indentation,
             Coordinate2D hexCoordinate)
@@ -49,10 +49,10 @@ namespace SBaier.Sampling
 
             Vector3 addition = rotation switch
             {
-                HexTileRotation.FlatTop => 
-                    new Vector3(0, halfMin * (indentation.IsIndented(gridCoordinate.X) ? 1 : 0)),
-                HexTileRotation.PointyTop => 
-                    new Vector3(halfMin * (indentation.IsIndented(gridCoordinate.Y) ? 1 : 0), 0),
+                HexTileRotation.FlatTop =>
+                    new Vector3(0, -halfMin * (indentation.IsIndented(gridCoordinate.X) ? 1 : 0)),
+                HexTileRotation.PointyTop =>
+                    new Vector3(-halfMin * (indentation.IsIndented(gridCoordinate.Y) ? 1 : 0), 0),
                 _ => throw new ArgumentOutOfRangeException()
             };
 
@@ -95,24 +95,24 @@ namespace SBaier.Sampling
 
         private static int GetGridX(this HexTileRotation rotation, 
             HexGridIndentation indentation,
-            Coordinate2D gridCoordinate)
+            Coordinate2D hexCoordinate)
         {
             return rotation switch
             {
-                HexTileRotation.FlatTop => gridCoordinate.X,
-                HexTileRotation.PointyTop => gridCoordinate.X - indentation.GetCoordinateAddition(gridCoordinate.Y),
+                HexTileRotation.FlatTop => hexCoordinate.X,
+                HexTileRotation.PointyTop => hexCoordinate.X - indentation.GetCoordinateAddition(hexCoordinate.Y),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
 
         private static int GetGridY(this HexTileRotation rotation, 
             HexGridIndentation indentation,
-            Coordinate2D gridCoordinate)
+            Coordinate2D hexCoordinate)
         {
             return rotation switch
             {
-                HexTileRotation.FlatTop => gridCoordinate.Y - indentation.GetCoordinateAddition(gridCoordinate.X),
-                HexTileRotation.PointyTop => gridCoordinate.Y,
+                HexTileRotation.FlatTop => hexCoordinate.Y - indentation.GetCoordinateAddition(hexCoordinate.X),
+                HexTileRotation.PointyTop => hexCoordinate.Y,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

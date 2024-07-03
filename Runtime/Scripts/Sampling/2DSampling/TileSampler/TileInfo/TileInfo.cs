@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace SBaier.Sampling
 {
     public interface TileInfo
@@ -7,7 +5,7 @@ namespace SBaier.Sampling
         int NeighboursAmount { get; }
         Coordinate2D GetNeighborCoordinate(int tileSideId, Coordinate2D coordinate);
 
-        public IEnumerable<Coordinate2D> GetNeighborCoordinates(Coordinate2D coordinate)
+        public Coordinate2D[] GetNeighborCoordinates(Coordinate2D coordinate)
         {
             Coordinate2D[] neighbors = new Coordinate2D[NeighboursAmount];
             

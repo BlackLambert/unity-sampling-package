@@ -75,19 +75,19 @@ namespace SBaier.Sampling
                 _coordinateSampler.UpdateDomain(possibleCoordinates);
                 coordinateSampler = _coordinateSampler;
             }
-            
+
             Coordinate2D coordinate = coordinateSampler.Sample();
+            Coordinate2D[] neighbors = _tileInfo.GetNeighborCoordinates(coordinate);
             _missingCoordinates.Remove(coordinate);
-            RemoveFromPossibleCoordinates(coordinate);
-            UpdatePossibleCoordinates(possibleCoordinates, coordinate);
+            UpdatePossibleCoordinates(possibleCoordinates, neighbors);
+            RemoveInvalidCoordinates(coordinate);
             Coordinate2D gridCoordinate = _grid2DCoordinateFactory.ToGridCoordinate(coordinate);
             return new SampleStep2D<T>(sample, gridCoordinate);
         }
 
-        private void UpdatePossibleCoordinates(List<Coordinate2D> possibleCoordinates, Coordinate2D coordinate)
+        private void UpdatePossibleCoordinates(List<Coordinate2D> possibleCoordinates,
+            Coordinate2D[] neighbors)
         {
-            IEnumerable<Coordinate2D> neighbors = _tileInfo.GetNeighborCoordinates(coordinate);
-
             foreach (Coordinate2D neighbor in neighbors)
             {
                 if (_missingCoordinates.Contains(neighbor) && !possibleCoordinates.Contains(neighbor))
@@ -97,15 +97,20 @@ namespace SBaier.Sampling
             }
         }
 
-        private void RemoveFromPossibleCoordinates(Coordinate2D coordinate)
+        private void RemoveInvalidCoordinates(Coordinate2D coordinate)
         {
             foreach (KeyValuePair<T, List<Coordinate2D>> pair in _sampleToPossibleCoordinates)
             {
-                if (pair.Value != null && pair.Value.Remove(coordinate) && pair.Value.Count == 0)
-                {
-                    _validSamples.Remove(pair.Key);
-                    _baseSampler.UpdateDomain(_validSamples);
-                }
+                RemoveFrom(pair.Key, pair.Value, coordinate);
+            }
+        }
+
+        private void RemoveFrom(T sample, List<Coordinate2D> coordinates, Coordinate2D coordinate)
+        {
+            if (coordinates != null && coordinates.Remove(coordinate) && coordinates.Count == 0)
+            {
+                _validSamples.Remove(sample);
+                _baseSampler.UpdateDomain(_validSamples);
             }
         }
     }

@@ -73,10 +73,10 @@ namespace SBaier.Sampling.Samples.HexTileSample
         {
             return _type switch
             {
-                Type.Basic => _factory.CreateWeightedBasicHexSampler(new Seed(_currentSeed), _tileSet.Tiles),
+                Type.Basic => _factory.CreateWeightedBasicHexSampler(new Seed(_currentSeed), _tileSet.Tiles, _tileRotation, _gridIndentation),
                 Type.NeighborConstraint => _factory.CreateWeightedNeighborConstraintSamplerWithPrioritizedHexSelector(
-                    new Seed(_currentSeed), _tileSet.Tiles, _tileSet.defaultTile),
-                Type.Areal => _factory.CreateArealSampler(new Seed(_currentSeed), _tileSet.Tiles),
+                    new Seed(_currentSeed), _tileSet.Tiles, _tileSet.defaultTile, _tileRotation, _gridIndentation),
+                Type.Areal => _factory.CreateArealSampler(new Seed(_currentSeed), _tileSet.Tiles, _tileRotation, _gridIndentation),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

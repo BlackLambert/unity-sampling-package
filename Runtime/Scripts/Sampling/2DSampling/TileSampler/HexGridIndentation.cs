@@ -14,8 +14,8 @@ namespace SBaier.Sampling
         {
             return indentation switch
             {
-                HexGridIndentation.Even => index / 2,
-                HexGridIndentation.Odd => (index + 1) / 2,
+                HexGridIndentation.Even => (index + (index&1)) / 2,
+                HexGridIndentation.Odd => (index - (index&1)) / 2,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
@@ -24,8 +24,8 @@ namespace SBaier.Sampling
         {
             return indentation switch
             {
-                HexGridIndentation.Even => index % 2 == 0,
-                HexGridIndentation.Odd => index % 2 == 1,
+                HexGridIndentation.Even => (index&1) == 0,
+                HexGridIndentation.Odd => (index&1) == 1,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

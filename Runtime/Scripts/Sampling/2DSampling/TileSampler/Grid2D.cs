@@ -30,6 +30,11 @@ namespace SBaier.Sampling
             get => _tiles[row, column];
             set => _tiles[row, column] = value;
         }
+
+        public bool TryGet(Coordinate2D coordinate, out T tile)
+        {
+            return TryGet(coordinate.X, coordinate.Y, out tile);
+        }
         
         public bool TryGet(int x, int y, out T tile)
         {

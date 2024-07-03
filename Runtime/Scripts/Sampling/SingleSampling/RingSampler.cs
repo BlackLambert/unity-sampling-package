@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace SBaier.Sampling
@@ -11,6 +12,11 @@ namespace SBaier.Sampling
         
         public T Sample()
         {
+            if (!HasSample)
+            {
+                throw new InvalidOperationException("Failed to sample. The domain is empty");
+            }
+            
             _currentIndex = (_currentIndex + 1) % _domain.Count;
             return _domain[_currentIndex];
         }

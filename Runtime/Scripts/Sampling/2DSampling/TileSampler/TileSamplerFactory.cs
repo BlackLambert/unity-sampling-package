@@ -7,35 +7,35 @@ namespace SBaier.Sampling
         private SingleSamplerBuilder _singleBuilder = new SingleSamplerBuilder();
         private TileSamplerBuilder _tileBuilder = new TileSamplerBuilder();
         
-        public Sampler2D<TTile> CreateArealSampler<TTile>(Seed seed, IList<TTile> items)
+        public Sampler2D<TTile> CreateArealSampler<TTile>(Seed seed, IList<TTile> items, HexTileRotation rotation, HexGridIndentation indentation)
             where TTile : Tile, Weighted
         {
             Sampler<TTile> singleSampler = new RingSampler<TTile>();
             singleSampler.UpdateDomain(items);
 
             return _tileBuilder
-                .CreateHexTileSampler<TTile>()
+                .CreateHexTileSampler<TTile>(rotation, indentation)
                 .WithRandomCoordinateSampler(seed.Random)
                 .WithSingleSampler(singleSampler)
                 .WithDomain(items)
                 .BuildArealSampler(new RandomSampler<Coordinate2D>(seed.Random));
         }
         
-        public Sampler2D<TTile> CreateVoronoyArealSampler<TTile>(Seed seed, IList<TTile> items)
+        public Sampler2D<TTile> CreateVoronoyArealSampler<TTile>(Seed seed, IList<TTile> items, HexTileRotation rotation, HexGridIndentation indentation)
             where TTile : Tile, Weighted
         {
             Sampler<TTile> singleSampler = new RingSampler<TTile>();
             singleSampler.UpdateDomain(items);
 
             return _tileBuilder
-                .CreateHexTileSampler<TTile>()
+                .CreateHexTileSampler<TTile>(rotation, indentation)
                 .WithCoordinateSampler(new FirstElementSampler<Coordinate2D>())
                 .WithSingleSampler(singleSampler)
                 .WithDomain(items)
                 .BuildArealSampler(new RandomSampler<Coordinate2D>(seed.Random));
         }
         
-        public Sampler2D<TTile> CreateWeightedBasicHexSampler<TTile>(Seed seed, IList<TTile> items)
+        public Sampler2D<TTile> CreateWeightedBasicHexSampler<TTile>(Seed seed, IList<TTile> items, HexTileRotation rotation, HexGridIndentation indentation)
             where TTile : Tile, Weighted
         {
             Sampler<TTile> singleSampler = _singleBuilder.CreateWeighted<TTile>()
@@ -44,7 +44,7 @@ namespace SBaier.Sampling
                 .WithNoDomain();
 
             return _tileBuilder
-                .CreateHexTileSampler<TTile>()
+                .CreateHexTileSampler<TTile>(rotation, indentation)
                 .WithBasicCoordinateSampler()
                 .WithSingleSampler(singleSampler)
                 .WithDomain(items)
@@ -103,7 +103,7 @@ namespace SBaier.Sampling
         }
 
         public Sampler2D<TTile> CreateWeightedNeighborConstraintSamplerWithPrioritizedHexSelector<TTile>(Seed seed,
-            IList<TTile> items, TTile defaultTile)
+            IList<TTile> items, TTile defaultTile, HexTileRotation rotation, HexGridIndentation indentation)
             where TTile : Tile, Weighted, NeighborConstraintTile
         {
             Sampler<TTile> singleSampler = _singleBuilder.CreateWeighted<TTile>()
@@ -112,7 +112,7 @@ namespace SBaier.Sampling
                 .WithNoDomain();
 
             return _tileBuilder
-                .CreateHexTileSampler<TTile>()
+                .CreateHexTileSampler<TTile>(rotation, indentation)
                 .WithRandomCoordinateSampler(seed.Random)
                 .WithSingleSampler(singleSampler)
                 .WithDomain(items)
