@@ -19,6 +19,7 @@ namespace SBaier.Sampling
         protected override void InitSampling(List<Coordinate2D> coordinates)
         {
             _coordinateSampler.UpdateDomain(coordinates);
+            _baseSampler.UpdateDomain(_domain);
         }
 
         protected override Func<SampleStep2D<T>> GetSampleNextFunction(Grid2D<T> grid2D) => SampleNext;

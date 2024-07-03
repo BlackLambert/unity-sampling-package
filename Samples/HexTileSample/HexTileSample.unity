@@ -241,17 +241,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tileSet: {fileID: 11400000, guid: b88e189e273f83d4ab6a9d8c373024ff, type: 2}
-  _width: 20
-  _height: 20
+  _width: 21
+  _height: 21
   _tileHook: {fileID: 1507637739}
   _seed: 64
   mapTilePrefab: {fileID: 4526644271638745330, guid: 32b78f1ff077a764d8e7114a9225893e, type: 3}
-  _type: 2
+  _type: 0
   _randomizeSeed: 1
   _randomizeDelay: 5
-  _delayBetweenTiles: 0.02
-  _gridIndentation: 0
-  _tileRotation: 0
+  _delayBetweenTiles: 0.001
+  _gridIndentation: 1
+  _tileRotation: 1
   _defaultTile: {fileID: 11400000, guid: d07c276930296074aa97264b61f436b8, type: 2}
 --- !u!4 &1319142275
 Transform:

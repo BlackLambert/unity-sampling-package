@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace SBaier.Sampling.Examples.TileSampleOne
 {
@@ -16,7 +15,7 @@ namespace SBaier.Sampling.Examples.TileSampleOne
         [SerializeField] private bool _useNeighbourConstraint = true;
         [SerializeField] private bool _randomizeSeed = true;
         [SerializeField] private float _randomizeDelay = 5;
-        [SerializeField] private MapTileSettings defaultTile;
+        [SerializeField] private MapTileSettings _defaultTile;
         [SerializeField] private float _delayBetweenTiles = 0.1f;
 
         private MapTile[,] _tiles;
@@ -35,7 +34,7 @@ namespace SBaier.Sampling.Examples.TileSampleOne
         private void InitMap()
         {
             _tiles = new MapTile[_height, _width];
-            MapTileSettings tileSetting = defaultTile;
+            MapTileSettings tileSetting = _defaultTile;
             for (int row = 0; row < _height; row++)
             {
                 for (int column = 0; column < _width; column++)
@@ -51,7 +50,7 @@ namespace SBaier.Sampling.Examples.TileSampleOne
 
         private void ResetMap()
         {
-            MapTileSettings tileSetting = defaultTile;
+            MapTileSettings tileSetting = _defaultTile;
             for (int row = 0; row < _height; row++)
             {
                 for (int column = 0; column < _width; column++)
@@ -75,7 +74,7 @@ namespace SBaier.Sampling.Examples.TileSampleOne
                     _factory.CreateWeightedNeighborConstraintSamplerWithPrioritizedSelector(
                         new Seed(_currentSeed),
                         _tileSet.Tiles, 
-                        _tileSet.defaultTile);
+                        _tileSet.DefaultTile);
                 StartCoroutine(CreateMap(sampler2D));
             }
             else
