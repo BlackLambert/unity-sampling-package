@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PCGToolkit.Sampling
+namespace SBaier.Sampling
 {
     public class RectangleBounds : Bounds<Vector2>
 	{

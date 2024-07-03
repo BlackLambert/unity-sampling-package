@@ -1,4 +1,4 @@
-namespace PCGToolkit.Sampling
+namespace SBaier.Sampling
 {
     public class ConstraintAndOperator<T> : ConstraintDoubleOperator<T>
     {

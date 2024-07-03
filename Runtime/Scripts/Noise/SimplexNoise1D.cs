@@ -1,6 +1,6 @@
 using System;
 
-namespace PCGToolkit.Sampling
+namespace SBaier.Sampling
 {
     public class SimplexNoise1D : Noise1D
     {

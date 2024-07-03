@@ -1,11 +1,13 @@
-using System;
 using System.Collections.Generic;
 
-namespace PCGToolkit.Sampling
+namespace SBaier.Sampling
 {
+    
     public interface Sampler<T>
     {
-        IReadOnlyCollection<T> Domain { get; }
-        void UpdateDomain(IList<T> domain);
+        bool HasSample { get; }
+        T Sample();
+        List<T> Sample(int amount);
+        void UpdateDomain(IEnumerable<T> domain);
     }
 }

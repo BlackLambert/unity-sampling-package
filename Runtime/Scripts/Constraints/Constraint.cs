@@ -1,4 +1,4 @@
-namespace PCGToolkit.Sampling
+namespace SBaier.Sampling
 {
     public interface Constraint<in T>
     {

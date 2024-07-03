@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PCGToolkit.Sampling
+namespace SBaier.Sampling
 {
     public class SingleSamplerBuilder
     {
@@ -28,46 +28,46 @@ namespace PCGToolkit.Sampling
 
             public ConstraintSamplerStep<T> InConstraintSampler()
             {
-                return new ConstraintSamplerStep<T>(new WeightedSingleSampler<T>(_seed.Random));
+                return new ConstraintSamplerStep<T>(new WeightedSampler<T>(_seed.Random));
             }
 
             public UpdateDomainStep<T> And()
             {
-                return new UpdateDomainStep<T>(new WeightedSingleSampler<T>(_seed.Random));
+                return new UpdateDomainStep<T>(new WeightedSampler<T>(_seed.Random));
             }
         }
 
         public class ConstraintSamplerStep<T>
         {
-            private SingleSampler<T> _baseSampler;
+            private Sampler<T> _baseSampler;
 
-            public ConstraintSamplerStep(SingleSampler<T> baseSampler)
+            public ConstraintSamplerStep(Sampler<T> baseSampler)
             {
                 _baseSampler = baseSampler;
             }
 
             public UpdateDomainStep<T> WithConstraint(Constraint<T> constraint)
             {
-                return new UpdateDomainStep<T>(new ConstraintSingleSampler<T>(_baseSampler, constraint));
+                return new UpdateDomainStep<T>(new ConstraintSampler<T>(_baseSampler, constraint));
             }
         }
 
         public class UpdateDomainStep<T>
         {
-            private SingleSampler<T> _sampler;
+            private Sampler<T> _sampler;
 
-            public UpdateDomainStep(SingleSampler<T> sampler)
+            public UpdateDomainStep(Sampler<T> sampler)
             {
                 _sampler = sampler;
             }
             
-            public SingleSampler<T> WithDomain(IList<T> domain)
+            public Sampler<T> WithDomain(IList<T> domain)
             {
                 _sampler.UpdateDomain(domain);
                 return _sampler;
             }
 
-            public SingleSampler<T> WithNoDomain()
+            public Sampler<T> WithNoDomain()
             {
                 _sampler.UpdateDomain(new List<T>());
                 return _sampler;

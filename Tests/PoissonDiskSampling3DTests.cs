@@ -4,7 +4,7 @@ using Moq;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace PCGToolkit.Sampling.Tests
+namespace SBaier.Sampling.Tests
 {
     public class PoissonDiskSampling3DTests
     {

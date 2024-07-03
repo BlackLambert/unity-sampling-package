@@ -1,6 +1,6 @@
 using System;
 
-namespace PCGToolkit.Sampling
+namespace SBaier.Sampling
 {
     public class InvalidBoundsException : Exception
     {
